@@ -1,0 +1,7 @@
+application: Go
+version: 1.18.3
+toolchain: 
+toolchain_version: 
+suffix: 
+comments: Go is needed to install Apptainer/Singularity
+
