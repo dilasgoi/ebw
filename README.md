@@ -61,7 +61,7 @@ application: Go
 version: 1.20.4
 toolchain: GCC
 toolchain_version: 11.3.0
-suffix: Custom
+suffix: 
 parallel: 24
 common: false
 ```
