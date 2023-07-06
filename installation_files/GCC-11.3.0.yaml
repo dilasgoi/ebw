@@ -3,5 +3,6 @@ version: 11.3.0
 toolchain: 
 toolchain_version: 
 suffix: 
+parallel:
 comments: GCC compiler  
 
