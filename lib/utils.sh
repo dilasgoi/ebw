@@ -1,5 +1,34 @@
 #!/bin/bash
 
+# Function to parse arguments
+function parse_arguments {
+  local dryrun=0
+  local filename=""
+  local username=""
+
+  while getopts "f:u:d" opt; do
+    case ${opt} in
+        f )
+            filename=$OPTARG
+            ;;
+        u )
+            username=$OPTARG
+            ;;
+        d )
+            dryrun=1
+            ;;
+        \? )
+            echo "Usage: $(basename $0) -f <installation_file.yaml> -u <username> [-d]"
+            exit 1
+            ;;
+    esac
+  done
+  shift $((OPTIND -1))
+
+  echo $filename $username $dryrun
+}
+
+
 # Function to check if a filename has been provided
 function check_filename {
     local filename=$1
@@ -27,6 +56,22 @@ function check_file_exists {
         echo "File $filename not found in the installation_files/ directory"
         return 1
     fi
+}
+
+# Function to load EasyBuild's configuration
+function load_eb_configuration {
+  local script_dir=$(dirname "$0")
+  local conf_file="${script_dir}/../conf/settings.yaml"
+
+  local build_path=$(yq e '.buildpath' ${conf_file})
+  local hide_deps=$(yq e '.hide-deps' ${conf_file})
+  local install_path=$(yq e '.installpath' ${conf_file})
+  local common_path=$(yq e '.commonpath' ${conf_file})
+  local source_path=$(yq e '.sourcepath' ${conf_file})
+  local modules_tool=$(yq e '.modules-tool' ${conf_file})
+  local hooks=$(yq e '.hooks' ${conf_file})
+
+  echo $build_path $hide_deps $install_path $common_path $source_path $modules_tool $hooks
 }
 
 # Function to parse the YAML file using yq

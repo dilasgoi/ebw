@@ -11,28 +11,8 @@ SCRIPT_DIR=$(dirname $(readlink -f $0))
 # Source utility scripts
 source "${SCRIPT_DIR}/../lib/utils.sh"
 
-# Initialize the dryrun variable to 0 (false)
-DRYRUN=0
-
-# Parse command-line arguments
-while getopts "f:u:d" opt; do
-    case ${opt} in
-        f )
-            FILENAME=$OPTARG
-            ;;
-        u )
-            USERNAME=$OPTARG
-            ;;
-	d )
-            DRYRUN=1
-            ;;
-        \? )
-            echo "Usage: $(basename $0) -f <installation_file.yaml> -u <username> [-d]"
-            exit 1
-            ;;
-    esac
-done
-shift $((OPTIND -1))
+# Call parse_arguments function from utils.sh
+read -r FILENAME USERNAME DRYRUN < <(parse_arguments "$@")
 
 # Check if a filename and username have been provided
 check_filename "${FILENAME}" || exit 1
@@ -41,15 +21,8 @@ check_username "${USERNAME}" || exit 1
 # Check if the file exists
 check_file_exists "$SCRIPT_DIR" "$FILENAME" || exit 1
 
-# Load configuration
-CONF_FILE="${SCRIPT_DIR}/../conf/settings.yaml"
-BUILD_PATH=$(yq e '.buildpath' ${CONF_FILE})
-HIDE_DEPS=$(yq e '.hide-deps' ${CONF_FILE})
-INSTALL_PATH=$(yq e '.installpath' ${CONF_FILE})
-COMMON_PATH=$(yq e '.commonpath' $CONF_FILE)
-SOURCE_PATH=$(yq e '.sourcepath' ${CONF_FILE})
-MODULES_TOOL=$(yq e '.modules-tool' ${CONF_FILE})
-HOOKS=$(yq e '.hooks' ${CONF_FILE})
+# Load EasyBuild's configuration
+read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH MODULES_TOOL HOOKS < <(load_eb_configuration)
 
 # Parse the YAML file
 parse_yaml "${SCRIPT_DIR}" "${FILENAME}"
