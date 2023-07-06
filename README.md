@@ -97,6 +97,7 @@ who performed the installation. Logs are located in the `logs` directory and eac
 ```bash
 # Log File
 logs/${EASYCONFIG}-${USERNAME}-${TIMESTAMP}.log
+```
 
 ## Contributions
 
