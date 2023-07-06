@@ -9,7 +9,9 @@ trap 'handle_error $LINENO $?' ERR
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 
 # Source utility scripts
+source "${SCRIPT_DIR}/../lib/configuration.sh"
 source "${SCRIPT_DIR}/../lib/utils.sh"
+source "${SCRIPT_DIR}/../lib/checks.sh"
 
 # Call parse_arguments function from utils.sh
 read -r FILENAME USERNAME DRYRUN < <(parse_arguments "$@")
