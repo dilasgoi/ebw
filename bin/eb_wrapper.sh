@@ -44,10 +44,11 @@ check_file_exists "$SCRIPT_DIR" "$FILENAME" || exit 1
 # Load configuration
 CONF_FILE="${SCRIPT_DIR}/../conf/settings.yaml"
 BUILD_PATH=$(yq e '.buildpath' ${CONF_FILE})
-HIDE_DEPS=$(yq e '.hide_deps' ${CONF_FILE})
+HIDE_DEPS=$(yq e '.hide-deps' ${CONF_FILE})
 INSTALL_PATH=$(yq e '.installpath' ${CONF_FILE})
 COMMON_PATH=$(yq e '.commonpath' $CONF_FILE)
 SOURCE_PATH=$(yq e '.sourcepath' ${CONF_FILE})
+MODULES_TOOL=$(yq e '.modules-tool' ${CONF_FILE})
 
 # Parse the YAML file
 parse_yaml "${SCRIPT_DIR}" "${FILENAME}"
@@ -61,7 +62,7 @@ EB_COMMAND="eb --buildpath=${BUILD_PATH} \
                --hide-deps=${HIDE_DEPS} \
 	       --installpath=${INSTALL_PATH} \
 	       --sourcepath=${SOURCE_PATH} \
-	       --modules-tool=Lmod \
+	       --modules-tool=${MODULES_TOOL} \
 	       ${EASYCONFIG}.eb"
 
 # If PARALLEL is not empty, add --parallel option
