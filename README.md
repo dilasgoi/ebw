@@ -15,16 +15,16 @@ The main script `eb_wrapper.sh` is used with flags to specify the YAML file for 
 
 ```bash
 # Standard use
-bin/eb_wrapper.sh -f <installation_file.yaml> -u <username>
+eb_wrapper.sh -f <installation_file.yaml> -u <username>
 
 # Dry run
-bin/eb_wrapper.sh -f <installation_file.yaml> -u <username> -d
+eb_wrapper.sh -f <installation_file.yaml> -u <username> -d
 ```
 
 For example, to run a dry install for `Go-1.20.4.yaml` as user `Diego`, you would use:
 
 ```bash
-bin/eb_wrapper.sh -f Go-1.20.4.yaml -u Diego -d
+eb_wrapper.sh -f Go-1.20.4.yaml -u Diego -d
 ```
 
 ## Requirements
