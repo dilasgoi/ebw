@@ -57,18 +57,31 @@ function parse_yaml {
     fi
 }
 
+# Function to create the EasyBuild command
+function create_eb_command {
+  local buildpath=$1
+  local hidedeps=$2
+  local installpath=$3
+  local sourcepath=$4
+  local modulestool=$5
+  local hooks=$6
+  local easyconfig=$7
+
+  echo "eb --buildpath=${buildpath} --hide-deps=${hidedeps} --installpath=${installpath} --sourcepath=${sourcepath} --modules-tool=${modulestool} --hooks=${hooks} ${easyconfig}.eb"
+}
+
 # Function to check the exit status
 function check_exit_status {
     local exit_status=$1
     local easyconfig=$2
     local logfile=$3
 
-    if [ ${exist_status} -ne 0 ]; then
-        echo "$(date): Installation ended with error for ${easyconfig}, exit status: ${exist_status}" | tee -a "${logfile}"
+    if [ ${exit_status} -ne 0 ]; then
+        echo "$(date): Installation ended with error for ${easyconfig}, exit status: ${exit_status}" | tee -a "${logfile}"
         echo "Check the log file ${logfile} for details."
         exit ${exit_status}
     else
-        echo "$(date): Installation ended successfully for ${easyconfig}, exit status: ${exist_status}" | tee -a "${logfile}"
+        echo "$(date): Installation ended successfully for ${easyconfig}, exit status: ${exit_status}" | tee -a "${logfile}"
     fi
 }
 

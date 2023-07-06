@@ -49,6 +49,7 @@ INSTALL_PATH=$(yq e '.installpath' ${CONF_FILE})
 COMMON_PATH=$(yq e '.commonpath' $CONF_FILE)
 SOURCE_PATH=$(yq e '.sourcepath' ${CONF_FILE})
 MODULES_TOOL=$(yq e '.modules-tool' ${CONF_FILE})
+HOOKS=$(yq e '.hooks' ${CONF_FILE})
 
 # Parse the YAML file
 parse_yaml "${SCRIPT_DIR}" "${FILENAME}"
@@ -58,12 +59,8 @@ if [ "${COMMON}" == "true" ]; then
     INSTALL_PATH=${COMMON_PATH}
 fi
 
-EB_COMMAND="eb --buildpath=${BUILD_PATH} \
-               --hide-deps=${HIDE_DEPS} \
-	       --installpath=${INSTALL_PATH} \
-	       --sourcepath=${SOURCE_PATH} \
-	       --modules-tool=${MODULES_TOOL} \
-	       ${EASYCONFIG}.eb"
+# Create the installation command
+EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 
 # If PARALLEL is not empty, add --parallel option
 if [ -n "${PARALLEL}" ]; then
