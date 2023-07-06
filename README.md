@@ -42,6 +42,40 @@ eb_wrapper.sh -f Go-1.20.4.yaml -u Diego -d
 - **Common installation option**: Allows users to install microarchitecture independent code by setting the "common" field in the installation YAML file.
 - **Parallel build option**: Allows users to build packages in parallel when the system supports it by setting the "parallel" field in the installation YAML file. By default EasyBuild will use all the cores.
 
+## Project Organization
+
+```
+.
+├── bin
+│   └── eb_wrapper.sh
+├── conf
+│   └── settings.yaml
+├── CONTRIBUTING.md
+├── installation_files
+│   ├── GCC-11.3.0.yaml
+│   ├── Go-1.18.3.yaml
+│   └── Go-1.20.4.yaml
+├── lib
+│   ├── checks.sh
+│   ├── configuration.sh
+│   └── utils.sh
+├── logs
+│   ├── GCC-11.3.0-20230706124940.log
+│   ├── GCC-11.3.0-20230706141457.log
+│   ├── Go-1.18.3-20230706143715.log
+│   ├── Go-1.20.4-20230706153319.log
+└── README.md
+```
+
+- `bin`: Contains the main script.
+- `conf`: Configuration files for the project.
+- `installation_files`: YAML files defining installations.
+- `lib`: Utility scripts for the main script. The utility scripts are now separated into different files for better maintainability and readability:
+    - `checks.sh`: Contains functions for checking and validating inputs and system configuration.
+    - `configuration.sh`: Contains functions for loading configuration from the `settings.yaml` file.
+    - `utils.sh`: Contains general utility functions used by the main script.
+- `logs`: Logs of installation attempts.
+
 ## Installation YAML File Structure
 
 Each installation is defined through a YAML file with the following fields:
@@ -91,28 +125,6 @@ The fields in the `settings.yaml` file represent the following:
 - `modules-tool`: The module system used by your HPC environment (currently only "Lmod" is supported).
 
 In addition to these settings, you can define other EasyBuild configurations according to the [EasyBuild documentation](https://docs.easybuild.io/en/latest/Configuration.html).
-
-## Project Organization
-
-```
-.
-├── bin
-│   └── eb_wrapper.sh
-├── conf
-│   └── settings.yaml
-├── installation_files
-│   ├── GCC-11.3.0.yaml
-│   └── Go-1.20.4.yaml
-├── lib
-│   └── utils.sh
-└── logs
-```
-
-- `bin`: Contains the main script.
-- `conf`: Configuration files for the project.
-- `installation_files`: YAML files defining installations.
-- `lib`: Utility script(s) for the main script.
-- `logs`: Logs of installation attempts.
 
 ## Logging
 
