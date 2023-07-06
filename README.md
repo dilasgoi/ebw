@@ -63,7 +63,7 @@ toolchain: GCC
 toolchain_version: 11.3.0
 suffix: 
 parallel: 24
-common: false
+common: true
 ```
 
 ## Project Organization
