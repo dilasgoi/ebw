@@ -27,3 +27,13 @@ function post_execution_summary {
     echo "Command: ${eb_command}" | tee -a "${logfile}"
     echo "Log File: ${logfile}" | tee -a "${logfile}"
 }
+
+# Function to create a entry in the history file
+log_to_history() {
+    local timestamp=$1
+    local easyconfig=$2
+    local status=$4
+    local log_dir=$5
+
+    echo "${timestamp}-${easyconfig} ${status}" >> "${log_dir}/history"
+}
