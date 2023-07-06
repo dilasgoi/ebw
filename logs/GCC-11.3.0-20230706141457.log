@@ -1,0 +1,13 @@
+Thu Jul  6 14:14:57 CEST 2023: Installation started for GCC-11.3.0 by Diego
+YAML file content:
+application: GCC
+version: 11.3.0
+toolchain: 
+toolchain_version: 
+suffix: 
+parallel: 24
+common: true
+comments: GCC compiler  
+
+SHA256 hash of the YAML file:
+6ad28e361fe7c96bd0d1c54ab69e14ab320dc00d1bc0677a8bc507146d1c13a8  /scicomp/admin/eb_wrapper/bin/../installation_files/GCC-11.3.0.yaml

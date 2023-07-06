@@ -39,6 +39,7 @@ function parse_yaml {
     TOOLCHAIN_VERSION=$(yq e '.toolchain_version // ""' $yaml_file)  # Use an empty string if null
     SUFFIX=$(yq e '.suffix // ""' $yaml_file)  # Use an empty string if null
     PARALLEL=$(yq e '.parallel // ""' $yaml_file)  # Use an empty string if null
+    COMMON=$(yq e '.common // false' $yaml_file)  # Use 'false' as default value
     COMMENTS=$(yq e '.comments' $yaml_file)
 
     EASYCONFIG="${APPLICATION}-${VERSION}"
@@ -58,7 +59,7 @@ function parse_yaml {
 
 # Function to check the exit status
 function check_exit_status {
-    local exist_status=$1
+    local exit_status=$1
     local easyconfig=$2
     local logfile=$3
 

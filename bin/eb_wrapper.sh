@@ -46,10 +46,16 @@ CONF_FILE="${SCRIPT_DIR}/../conf/settings.yaml"
 BUILD_PATH=$(yq e '.buildpath' ${CONF_FILE})
 HIDE_DEPS=$(yq e '.hide_deps' ${CONF_FILE})
 INSTALL_PATH=$(yq e '.installpath' ${CONF_FILE})
+COMMON_PATH=$(yq e '.commonpath' $CONF_FILE)
 SOURCE_PATH=$(yq e '.sourcepath' ${CONF_FILE})
 
 # Parse the YAML file
 parse_yaml "${SCRIPT_DIR}" "${FILENAME}"
+
+# Override installpath if common is set to true
+if [ "${COMMON}" == "true" ]; then
+    INSTALL_PATH=${COMMON_PATH}
+fi
 
 EB_COMMAND="eb --buildpath=${BUILD_PATH} \
                --hide-deps=${HIDE_DEPS} \
