@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -e
 
@@ -46,7 +46,8 @@ fi
 if [ ${DRYRUN} -eq 0 ]; then
     # Prepare for logging
     TIMESTAMP="$(date +%Y%m%d%H%M%S)"
-    LOGFILE="${SCRIPT_DIR}/../logs/${EASYCONFIG}-${TIMESTAMP}.log"
+    LOGDIR="${SCRIPT_DIR}/../logs"
+    LOGFILE="${LOGDIR}/${EASYCONFIG}-${TIMESTAMP}.log"
 
     # Register the start time and the easyconfig name
     echo "$(date): Installation started for ${EASYCONFIG} by ${USERNAME}" | tee -a "${LOGFILE}"
@@ -71,6 +72,8 @@ if [ ${DRYRUN} -eq 0 ]; then
     post_execution_summary "${FILENAME}" "${USERNAME}" "${APPLICATION}" "${VERSION}" "${TOOLCHAIN}" \
                            "${TOOLCHAIN_VERSION}" "${SUFFIX}" "${PARALLEL}" "${EASYCONFIG}" \
                            "${EB_COMMAND}" "${LOGFILE}"
+
+    log_to_history "${TIMESTAMP}" "${EASYCONFIG}" "${EXIT_STATUS}" "${LOGDIR}"
 else
     # Dry run
     echo "Performing dry run for ${EASYCONFIG}"

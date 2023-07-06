@@ -32,8 +32,8 @@ function post_execution_summary {
 log_to_history() {
     local timestamp=$1
     local easyconfig=$2
-    local status=$4
-    local log_dir=$5
+    local exit_status=$3
+    local log_dir=$4
 
-    echo "${timestamp}-${easyconfig} ${status}" >> "${log_dir}/history"
+    echo "${timestamp} ${easyconfig} ${exit_status}" >> "${log_dir}/history"
 }
