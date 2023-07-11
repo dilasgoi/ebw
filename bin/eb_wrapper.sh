@@ -42,8 +42,14 @@ fi
 
 # If EULA is not empty, add --accept-eula-for option
 if [ -n "${EULA}" ]; then
-	    EB_COMMAND+=" --accept-eula-for=${EULA}"
-    fi
+    EB_COMMAND+=" --accept-eula-for=${EULA}"
+fi
+
+# If CUDA_COMPUTE_CAPABILITIES is not empty, add --cuda_compute_capabilities option
+if [ -n "${EULA}" ]; then
+    EB_COMMAND+=" --cuda_compute_capabilities=${CUDA_COMPUTE_CAPABILITIES}"
+fi
+
 
 # If not a dry run, prepare for logging and run eb
 if [ ${DRYRUN} -eq 0 ]; then

@@ -27,6 +27,7 @@ function parse_yaml {
     SUFFIX=$(yq e '.suffix // ""' $yaml_file)  # Use an empty string if null
     PARALLEL=$(yq e '.parallel // ""' $yaml_file)  # Use an empty string if null
     EULA=$(yq e '.eula // ""' $yaml_file)  # Use an empty string if null
+    CUDA_COMPUTE_CAPABILITIES=$(yq e '.cuda_compute_capabilities // ""' $yaml_file)  # Use an empty string if null
     COMMON=$(yq e '.common // false' $yaml_file)  # Use 'false' as default value
     COMMENTS=$(yq e '.comments' $yaml_file)
 

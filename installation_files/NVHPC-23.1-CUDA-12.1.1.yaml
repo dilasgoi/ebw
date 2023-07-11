@@ -1,0 +1,11 @@
+application:NVHPC 
+version: 23.1
+toolchain: 
+toolchain_version: 
+suffix:
+parallel: 
+common: false
+eula: NVHPC
+cuda_compute_capabilities: 7.5
+comments: 
+
