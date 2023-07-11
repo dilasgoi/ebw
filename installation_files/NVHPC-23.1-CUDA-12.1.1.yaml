@@ -1,8 +1,8 @@
-application:NVHPC 
+application: NVHPC 
 version: 23.1
 toolchain: 
 toolchain_version: 
-suffix:
+suffix: "CUDA-12.1.1"
 parallel: 
 common: false
 eula: NVHPC

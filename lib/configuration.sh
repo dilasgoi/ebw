@@ -3,17 +3,17 @@
 # Function to load EasyBuild's configuration
 function load_eb_configuration {
   local script_dir=$(dirname "$0")
-  local conf_file="${script_dir}/../conf/settings.yaml"
-
+  local conf_file="${script_dir}/../config/settings.yaml"
   local build_path=$(yq e '.buildpath' ${conf_file})
   local hide_deps=$(yq e '.hide-deps' ${conf_file})
   local install_path=$(yq e '.installpath' ${conf_file})
   local common_path=$(yq e '.commonpath' ${conf_file})
   local source_path=$(yq e '.sourcepath' ${conf_file})
+  local robot_paths=$(yq e '.robot-paths' ${conf_file})
   local modules_tool=$(yq e '.modules-tool' ${conf_file})
   local hooks=$(yq e '.hooks' ${conf_file})
 
-  echo $build_path $hide_deps $install_path $common_path $source_path $modules_tool $hooks
+  echo $build_path $hide_deps $install_path $common_path $source_path $robot_paths $modules_tool $hooks
 }
 
 # Function to parse the YAML file using yq
@@ -48,13 +48,14 @@ function parse_yaml {
 
 # Function to create the EasyBuild command
 function create_eb_command {
-  local buildpath=$1
-  local hidedeps=$2
-  local installpath=$3
-  local sourcepath=$4
-  local modulestool=$5
-  local hooks=$6
-  local easyconfig=$7
+  local build_path=$1
+  local hide_deps=$2
+  local install_path=$3
+  local source_path=$4
+  local robot_paths=$5
+  local modules_tool=$6
+  local hooks=$7
+  local easyconfig=$8
 
-  echo "eb --buildpath=${buildpath} --hide-deps=${hidedeps} --installpath=${installpath} --sourcepath=${sourcepath} --modules-tool=${modulestool} --hooks=${hooks} ${easyconfig}.eb"
+  echo "eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}.eb"
 }

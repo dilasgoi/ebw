@@ -22,7 +22,7 @@ check_username "${USERNAME}" || exit 1
 check_file_exists "$SCRIPT_DIR" "$FILENAME" || exit 1
 
 # Load EasyBuild's configuration
-read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH MODULES_TOOL HOOKS < <(load_eb_configuration)
+read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
 
 # Parse the YAML file
 parse_yaml "${SCRIPT_DIR}" "${FILENAME}"
@@ -33,7 +33,7 @@ if [ "${COMMON}" == "true" ]; then
 fi
 
 # Create the installation command
-EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
+EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 
 # If PARALLEL is not empty, add --parallel option
 if [ -n "${PARALLEL}" ]; then
@@ -47,7 +47,7 @@ fi
 
 # If CUDA_COMPUTE_CAPABILITIES is not empty, add --cuda_compute_capabilities option
 if [ -n "${EULA}" ]; then
-    EB_COMMAND+=" --cuda_compute_capabilities=${CUDA_COMPUTE_CAPABILITIES}"
+    EB_COMMAND+=" --cuda-compute-capabilities=${CUDA_COMPUTE_CAPABILITIES}"
 fi
 
 
