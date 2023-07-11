@@ -1,0 +1,10 @@
+application: intel
+version: 2022b
+toolchain: 
+toolchain_version: 
+suffix:
+parallel: 
+common: false
+eula: Intel-oneAPI
+comments: 
+

@@ -1,0 +1,14 @@
+Tue Jul 11 21:01:22 CEST 2023: Installation started for intel-2022b by Diego
+YAML file content:
+application: intel
+version: 2022b
+toolchain: 
+toolchain_version: 
+suffix:
+parallel: 
+common: false
+eula: Intel-oneAPI
+comments: 
+
+SHA256 hash of the YAML file:
+e4509862c9b9f37314ba0322ad2b21d80c0e298416d371c15f2b5a821452266b  /scicomp/admin/easybuild/eb_wrapper/bin/../installation_files/intel-2022b.yaml

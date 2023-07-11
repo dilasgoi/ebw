@@ -1,6 +1,4 @@
-#!/bin/bash -x
-
-set -e
+#!/bin/bash
 
 # Trap the ERR signal
 trap 'handle_error $LINENO $?' ERR
@@ -41,6 +39,11 @@ EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOUR
 if [ -n "${PARALLEL}" ]; then
     EB_COMMAND+=" --parallel=${PARALLEL}"
 fi
+
+# If EULA is not empty, add --accept-eula-for option
+if [ -n "${EULA}" ]; then
+	    EB_COMMAND+=" --accept-eula-for=${EULA}"
+    fi
 
 # If not a dry run, prepare for logging and run eb
 if [ ${DRYRUN} -eq 0 ]; then

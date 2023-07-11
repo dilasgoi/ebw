@@ -1,9 +1,9 @@
-application: GCC
-version: 11.3.0
+application: CUDA
+version: 12.1.1
 toolchain: 
 toolchain_version: 
 suffix: 
 parallel: 24
 common: true
-comments: GCC compiler  
+comments:
 

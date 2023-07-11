@@ -2,6 +2,8 @@ application: Go
 version: 1.20.4
 toolchain: 
 toolchain_version: 
-suffix: 
+suffix:
+parallel: 
+common: true
 comments: Go is needed to install Apptainer/Singularity
 
