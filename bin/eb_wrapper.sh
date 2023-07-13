@@ -24,32 +24,11 @@ check_file_exists "$SCRIPT_DIR" "$FILENAME" || exit 1
 # Load EasyBuild's configuration
 read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
 
-# Parse the YAML file
-parse_yaml "${SCRIPT_DIR}" "${FILENAME}"
-
-# Override installpath if common is set to true
-if [ "${COMMON}" == "true" ]; then
-    INSTALL_PATH=${COMMON_PATH}
-fi
+# Parse the installation file file
+parse_installation_file "${SCRIPT_DIR}" "${FILENAME}"
 
 # Create the installation command
-EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
-
-# If PARALLEL is not empty, add --parallel option
-if [ -n "${PARALLEL}" ]; then
-    EB_COMMAND+=" --parallel=${PARALLEL}"
-fi
-
-# If EULA is not empty, add --accept-eula-for option
-if [ -n "${EULA}" ]; then
-    EB_COMMAND+=" --accept-eula-for=${EULA}"
-fi
-
-# If CUDA_COMPUTE_CAPABILITIES is not empty, add --cuda_compute_capabilities option
-if [ -n "${EULA}" ]; then
-    EB_COMMAND+=" --cuda-compute-capabilities=${CUDA_COMPUTE_CAPABILITIES}"
-fi
-
+EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG} ${PARALLEL} ${EULA} ${CUDA_COMPUTE_CAPABILITIES})
 
 # If not a dry run, prepare for logging and run eb
 if [ ${DRYRUN} -eq 0 ]; then

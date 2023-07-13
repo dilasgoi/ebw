@@ -16,8 +16,8 @@ function load_eb_configuration {
   echo $build_path $hide_deps $install_path $common_path $source_path $robot_paths $modules_tool $hooks
 }
 
-# Function to parse the YAML file using yq
-function parse_yaml {
+# Function to parse the installation file using yq
+function parse_installation_file {
     local script_dir=$1
     local yaml_file="$script_dir/../installation_files/$2"
     APPLICATION=$(yq e '.application' $yaml_file)
@@ -44,6 +44,11 @@ function parse_yaml {
     if [ -n "$SUFFIX" ]; then
         EASYCONFIG+="-${SUFFIX}"
     fi
+
+    # Override installpath if common is set to true
+    if [ "${COMMON}" == "true" ]; then
+        INSTALL_PATH=${COMMON_PATH}
+    fi
 }
 
 # Function to create the EasyBuild command
@@ -56,6 +61,27 @@ function create_eb_command {
   local modules_tool=$6
   local hooks=$7
   local easyconfig=$8
+  local parallel=$9
+  local eula=${10}
+  local cuda_compute_capabilities=${11}
 
-  echo "eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}.eb"
+  local eb_command="eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}.eb"
+
+  # If PARALLEL is not empty, add --parallel option                                 
+  if [ -n "${parallel}" ]; then                                                     
+      eb_command+=" --parallel=${parallel}"                                         
+  fi                                                                                
+                                                                                   
+  # If EULA is not empty, add --accept-eula-for option                              
+  if [ -n "${eula}" ]; then                                                         
+      eb_command+=" --accept-eula-for=${eula}"                                      
+  fi                                                                                
+
+  # If CUDA_COMPUTE_CAPABILITIES is not empty, add --cuda-compute-capabilities option
+  if [ -n "${cuda_compute_capabilities}" ]; then
+      eb_command+=" --cuda-compute-capabilities=${cuda_compute_capabilities}"
+  fi
+
+  echo $eb_command
 }
+
