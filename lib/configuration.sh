@@ -61,27 +61,31 @@ function create_eb_command {
   local modules_tool=$6
   local hooks=$7
   local easyconfig=$8
-  local parallel=$9
-  local eula=${10}
-  local cuda_compute_capabilities=${11}
 
-  local eb_command="eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}.eb"
+  echo "eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}.eb"
+}
 
-  # If PARALLEL is not empty, add --parallel option                                 
-  if [ -n "${parallel}" ]; then                                                     
-      eb_command+=" --parallel=${parallel}"                                         
-  fi                                                                                
-                                                                                   
-  # If EULA is not empty, add --accept-eula-for option                              
-  if [ -n "${eula}" ]; then                                                         
-      eb_command+=" --accept-eula-for=${eula}"                                      
-  fi                                                                                
+# Function to add optional parameters to the EasyBuild command
+function add_optional_options {
+  local eb_command=$1
+  local parallel=$2
+  local eula=$3
+  local cuda_compute_capabilities=$4
+
+  # If PARALLEL is not empty, add --parallel option
+  if [ -n "${parallel}" ]; then
+    eb_command+=" --parallel=${parallel}"
+  fi
+
+  # If EULA is not empty, add --accept-eula-for option
+  if [ -n "${eula}" ]; then
+    eb_command+=" --accept-eula-for=${eula}"
+  fi
 
   # If CUDA_COMPUTE_CAPABILITIES is not empty, add --cuda-compute-capabilities option
   if [ -n "${cuda_compute_capabilities}" ]; then
-      eb_command+=" --cuda-compute-capabilities=${cuda_compute_capabilities}"
+    eb_command+=" --cuda-compute-capabilities=${cuda_compute_capabilities}"
   fi
 
-  echo $eb_command
+  echo "${eb_command}"
 }
-

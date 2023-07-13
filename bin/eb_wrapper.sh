@@ -28,7 +28,10 @@ read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH ROBOT_PATHS MO
 parse_installation_file "${SCRIPT_DIR}" "${FILENAME}"
 
 # Create the installation command
-EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG} ${PARALLEL} ${EULA} ${CUDA_COMPUTE_CAPABILITIES})
+EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
+
+# Add optional parameters to the command
+EB_COMMAND=$(add_optional_options "${EB_COMMAND}" "${PARALLEL}" "${EULA}" "${CUDA_COMPUTE_CAPABILITIES}")
 
 # If not a dry run, prepare for logging and run eb
 if [ ${DRYRUN} -eq 0 ]; then
