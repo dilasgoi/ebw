@@ -75,7 +75,7 @@ function check_exit_status {
 
 # Error handling function
 function handle_error {
-    echo "An error occurred on line $1 of the script."
-    echo "Exit status: $2"
-    exit $2
+    local logfile=$1
+    echo "An error occurred on line $1 of the script." | tee -a "${logfile}"
+    echo "Exit status: $2" | tee -a "${logfile}"
 }

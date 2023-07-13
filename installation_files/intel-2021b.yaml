@@ -1,0 +1,7 @@
+application: intel
+version: 2021b
+toolchain: 
+toolchain_version: 
+common: false
+eula: Intel-oneAPI
+
