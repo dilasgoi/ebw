@@ -79,3 +79,9 @@ function handle_error {
     echo "An error occurred on line $1 of the script." | tee -a "${logfile}"
     echo "Exit status: $2" | tee -a "${logfile}"
 }
+
+# Function to handle SIGINT (Ctrl+C)
+handle_sigint() {
+    echo "User interrupted the script. Exiting..."
+    exit 1
+}

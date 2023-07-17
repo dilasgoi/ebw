@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Trap the ERR signal
+# Trap the ERR and SIGINT signals
 trap 'handle_error $LINENO $?' ERR
+trap 'handle_sigint' SIGINT
 
 # Set absolute path to the main script
 SCRIPT_DIR=$(dirname $(readlink -f $0))
