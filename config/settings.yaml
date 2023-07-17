@@ -1,5 +1,6 @@
 installpath: "/scicomp/builds/Rocky/8.7/Skylake"
 commonpath: "/scicomp/builds/Rocky/8.7/Common"
+gpupath: "/scicomp/builds/Rocky/8.7/Skylake_GPU"
 sourcepath: "/scicomp/builds/source"
 buildpath: "/dev/shm/easybuild"
 robot-paths: "/scicomp/builds/Rocky/8.7/Skylake/software/EasyBuild/4.8.0/easybuild/easyconfigs:/scicomp/admin/easybuild/easyconfigs"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Trap the ERR and SIGINT signals
 trap 'handle_error $LINENO $?' ERR
@@ -26,7 +26,7 @@ FILENAME=$(find "${SCRIPT_DIR}/.." -type f -name "${FILENAME}")
 check_file_exists "$FILENAME" || { echo "The file ${FILENAME} was not found"; exit 1; }
 
 # Load EasyBuild's configuration
-read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
+read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
 
 # Parse the installation file file
 parse_installation_file "${FILENAME}"
@@ -35,7 +35,7 @@ parse_installation_file "${FILENAME}"
 EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 
 # Add optional parameters to the command
-EB_COMMAND=$(add_optional_options "${EB_COMMAND}" "${PARALLEL}" "${EULA}" "${CUDA_COMPUTE_CAPABILITIES}")
+EB_COMMAND=$(add_optional_options "${EB_COMMAND}" "${PARALLEL}" "${EULA}" "${GPU}" "${CUDA_COMPUTE_CAPABILITIES}")
 
 # If not a dry run, prepare for logging and run eb
 if [ ${DRYRUN} -eq 0 ]; then
@@ -55,7 +55,7 @@ if [ ${DRYRUN} -eq 0 ]; then
     echo "SHA256 hash of the YAML file:" | tee -a "${LOGFILE}"
     sha256sum "${FILENAME}" | tee -a "${LOGFILE}"
 
-    # Run eb with specific buildpath and hidden dependencies, and capture the exit status
+    echo $EB_COMMAND
     ${EB_COMMAND} -r
     EXIT_STATUS=$?
 
@@ -65,8 +65,8 @@ if [ ${DRYRUN} -eq 0 ]; then
                       "${LOGFILE}"
 
     post_execution_summary "${FILENAME}" "${USERNAME}" "${APPLICATION}" "${VERSION}" "${TOOLCHAIN}" \
-                           "${TOOLCHAIN_VERSION}" "${SUFFIX}" "${PARALLEL}" "${EASYCONFIG}" \
-                           "${EB_COMMAND}" "${LOGFILE}"
+                               "${TOOLCHAIN_VERSION}" "${SUFFIX}" "${PARALLEL}" "${EASYCONFIG}" \
+                               "${EB_COMMAND}" "${LOGFILE}"
 
     log_to_history "${TIMESTAMP}" "${EASYCONFIG}" "${EXIT_STATUS}" "${LOGDIR}"
 else

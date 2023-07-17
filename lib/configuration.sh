@@ -8,12 +8,13 @@ function load_eb_configuration {
   local hide_deps=$(yq e '.hide-deps' ${conf_file})
   local install_path=$(yq e '.installpath' ${conf_file})
   local common_path=$(yq e '.commonpath' ${conf_file})
+  local gpu_path=$(yq e '.gpupath' ${conf_file})
   local source_path=$(yq e '.sourcepath' ${conf_file})
   local robot_paths=$(yq e '.robot-paths' ${conf_file})
   local modules_tool=$(yq e '.modules-tool' ${conf_file})
   local hooks=$(yq e '.hooks' ${conf_file})
 
-  echo $build_path $hide_deps $install_path $common_path $source_path $robot_paths $modules_tool $hooks
+  echo $build_path $hide_deps $install_path $common_path $source_path $gpu_path $robot_paths $modules_tool $hooks
 }
 
 # Function to parse the installation file using yq
@@ -27,7 +28,8 @@ function parse_installation_file {
     SUFFIX=$(yq e '.suffix // ""' $yaml_file)  # Use an empty string if null
     PARALLEL=$(yq e '.parallel // ""' $yaml_file)  # Use an empty string if null
     EULA=$(yq e '.eula // ""' $yaml_file)  # Use an empty string if null
-    CUDA_COMPUTE_CAPABILITIES=$(yq e '.cuda_compute_capabilities // ""' $yaml_file)  # Use an empty string if null
+    GPU=$(yq e '.gpu // false' $yaml_file)  # Use 'false' as default value
+    CUDA_COMPUTE_CAPABILITIES=$(yq e '.cuda_compute_capabilities // ""' $yaml_file)
     COMMON=$(yq e '.common // false' $yaml_file)  # Use 'false' as default value
     COMMENTS=$(yq e '.comments' $yaml_file)
 
@@ -49,6 +51,11 @@ function parse_installation_file {
     if [ "${COMMON}" == "true" ]; then
         INSTALL_PATH=${COMMON_PATH}
     fi
+
+    # Override installpath if gou is set to true
+    if [ "${GPU}" == "true" ]; then
+        INSTALL_PATH=${GPU_PATH}
+    fi
 }
 
 # Function to create the EasyBuild command
@@ -64,13 +71,15 @@ function create_eb_command {
 
   echo "eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}.eb"
 }
-
-# Function to add optional parameters to the EasyBuild command
+ 
 function add_optional_options {
   local eb_command=$1
   local parallel=$2
   local eula=$3
-  local cuda_compute_capabilities=$4
+  local gpu=$4
+  local cuda_compute_capability=$5
+
+  local -a commands_array  # Array to store all commands
 
   # If PARALLEL is not empty, add --parallel option
   if [ -n "${parallel}" ]; then
@@ -82,10 +91,11 @@ function add_optional_options {
     eb_command+=" --accept-eula-for=${eula}"
   fi
 
-  # If CUDA_COMPUTE_CAPABILITIES is not empty, add --cuda-compute-capabilities option
-  if [ -n "${cuda_compute_capabilities}" ]; then
-    eb_command+=" --cuda-compute-capabilities=${cuda_compute_capabilities}"
+  # If GPU is true, add --cuda-compute-capabilities option for each capability
+  if [ "${gpu}" == "true" ] && [ -n "${cuda_compute_capability}" ]; then
+      eb_command+=" --cuda-compute-capabilities=${cuda_compute_capability}"
   fi
 
   echo "${eb_command}"
 }
+

@@ -6,6 +6,7 @@ suffix: "CUDA-11.7.0"
 parallel: 
 common: false
 eula:
-cuda_compute_capabilities: 7.5
+gpu: true
+cuda_compute_capabilities: '7.5,8.0' 
 comments: 
 
