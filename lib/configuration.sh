@@ -18,8 +18,8 @@ function load_eb_configuration {
 
 # Function to parse the installation file using yq
 function parse_installation_file {
-    local script_dir=$1
-    local yaml_file="$script_dir/../installation_files/$2"
+    local yaml_file=$1
+
     APPLICATION=$(yq e '.application' $yaml_file)
     VERSION=$(yq e '.version' $yaml_file)
     TOOLCHAIN=$(yq e '.toolchain // ""' $yaml_file)  # Use an empty string if null

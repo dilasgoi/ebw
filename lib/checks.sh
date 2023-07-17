@@ -47,13 +47,13 @@ function check_username {
     fi
 }
 
-# Function to check if the file exists
+# Function to check if the file exists                                                                                                                                         
 function check_file_exists {
-    local script_dir=$1
-    local filename=$2
-    echo "Checking if $script_dir/../installation_files/$filename exists"
-    if [ ! -f "$script_dir/../installation_files/$filename" ]; then
-        echo "File $filename not found in the installation_files/ directory"
+    local file=$1
+    echo "Checking if $file exists"
+
+    if [[ ! -e $file ]]; then
+        echo "File $file not found in the installation_files/ directory"
         return 1
     fi
 }

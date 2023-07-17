@@ -18,14 +18,17 @@ read -r FILENAME USERNAME DRYRUN < <(parse_arguments "$@")
 check_filename "${FILENAME}" || exit 1
 check_username "${USERNAME}" || exit 1
 
+# Search for the file in the script directory and its subdirectories
+FILENAME=$(find "${SCRIPT_DIR}/.." -type f -name "${FILENAME}")
+
 # Check if the file exists
-check_file_exists "$SCRIPT_DIR" "$FILENAME" || exit 1
+check_file_exists "$FILENAME" || { echo "The file ${FILENAME} was not found"; exit 1; }
 
 # Load EasyBuild's configuration
 read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
 
 # Parse the installation file file
-parse_installation_file "${SCRIPT_DIR}" "${FILENAME}"
+parse_installation_file "${FILENAME}"
 
 # Create the installation command
 EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
@@ -45,11 +48,11 @@ if [ ${DRYRUN} -eq 0 ]; then
 
     # Log the content of the YAML file
     echo "YAML file content:" | tee -a "${LOGFILE}"
-    cat "${SCRIPT_DIR}/../installation_files/$FILENAME" | tee -a "${LOGFILE}"
+    cat "${FILENAME}" | tee -a "${LOGFILE}"
 
     # Log the SHA256 hash of the YAML file
     echo "SHA256 hash of the YAML file:" | tee -a "${LOGFILE}"
-    sha256sum "${SCRIPT_DIR}/../installation_files/${FILENAME}" | tee -a "${LOGFILE}"
+    sha256sum "${FILENAME}" | tee -a "${LOGFILE}"
 
     # Run eb with specific buildpath and hidden dependencies, and capture the exit status
     ${EB_COMMAND} -r

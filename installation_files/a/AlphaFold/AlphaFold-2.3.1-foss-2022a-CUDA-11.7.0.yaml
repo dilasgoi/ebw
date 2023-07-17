@@ -1,0 +1,11 @@
+application: AlphaFold
+version: 2.3.1
+toolchain: foss
+toolchain_version: 2022a 
+suffix: "CUDA-11.7.0"
+parallel: 
+common: false
+eula:
+cuda_compute_capabilities: 7.5
+comments: 
+
