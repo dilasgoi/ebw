@@ -17,6 +17,7 @@ function load_eb_configuration {
   echo $build_path $hide_deps $install_path $common_path $source_path $gpu_path $robot_paths $modules_tool $hooks
 }
 
+# Function to parse the installation file
 function parse_installation_file {
     local json_file=$1
     local EASYCONFIGS=""
@@ -24,10 +25,10 @@ function parse_installation_file {
     local easyconfigs_length=$(jq '.easyconfigs | length' $json_file)
 
     for (( easyconfig_index=0; easyconfig_index<$easyconfigs_length; easyconfig_index++ )); do
-        local easyconfig=$(jq -r ".easyconfigs[$easyconfig_index] | keys[0]" $json_file)
-        local common=$(jq -r --arg KEY "$easyconfig" ".easyconfigs[$easyconfig_index][$KEY].options.common // \"false\"" $json_file)
-        local gpu=$(jq -r --arg KEY "$easyconfig" ".easyconfigs[$easyconfig_index][$KEY].options.gpu // \"false\"" $json_file)
-        local cuda_compute_capabilities=$(jq -r --arg KEY "$easyconfig" ".easyconfigs[$easyconfig_index][$KEY].options.cuda_compute_capabilities // \"\"" $json_file)
+        local easyconfig=$(jq -r ".easyconfigs[$easyconfig_index].name" $json_file)
+        local common=$(jq -r ".easyconfigs[$easyconfig_index].options.common // \"false\"" $json_file)
+        local gpu=$(jq -r ".easyconfigs[$easyconfig_index].options.gpu // \"false\"" $json_file)
+        local cuda_compute_capabilities=$(jq -r ".easyconfigs[$easyconfig_index].options.cuda_compute_capabilities // \"\"" $json_file)
 
         # Construct the line
         local line="Easyconfig: $easyconfig | Common: $common | GPU: $gpu | CUDA Compute Capabilities: $cuda_compute_capabilities"

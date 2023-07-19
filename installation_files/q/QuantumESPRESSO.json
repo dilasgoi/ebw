@@ -1,0 +1,13 @@
+{
+    "easyconfigs": [
+        {
+            "name": "QuantumESPRESSO-7.1-intel-2022a.eb",
+            "options": {}
+        },
+        {
+            "name": "QuantumESPRESSO-7.1-foss-2022a.eb",
+            "options": {}
+        }
+    ]
+}
+
