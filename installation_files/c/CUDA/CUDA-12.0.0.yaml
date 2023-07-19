@@ -1,9 +1,0 @@
-application: CUDA
-version: 12.0.0
-toolchain: 
-toolchain_version: 
-suffix: 
-parallel: 24
-common: true
-comments:
-

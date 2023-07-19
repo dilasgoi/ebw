@@ -1,0 +1,15 @@
+{
+    "easyconfigs": [
+        {
+            "intel-2022a.eb": {
+                "options": {
+                    "common": false
+                    "eula": 'NVHPC'
+		    "gpu": true
+		    "cuda-compute-capabilities": '7.5,8.0'
+                }
+            }
+        }
+    ]
+}
+

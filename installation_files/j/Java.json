@@ -1,0 +1,12 @@
+{
+    "easyconfigs": [
+        {
+            "Java-11.0.18.eb": {
+                "options": {
+                    "common": true
+                }
+            }
+        }
+    ]
+}
+

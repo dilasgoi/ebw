@@ -1,9 +1,0 @@
-application: foss
-version: 2021a
-toolchain: 
-toolchain_version: 
-suffix:
-parallel: 
-common: false
-comments: 
-

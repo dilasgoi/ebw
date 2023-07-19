@@ -1,0 +1,23 @@
+{
+    "easyconfigs": [
+        {
+            "intel-2021a.eb": {
+                "options": {
+                    "common": false
+                    "eula": 'Intel-oneAPI'
+                },
+	     "intel-2022a.eb": {
+                "options": {
+                    "common": false
+                    "eula": 'Intel-oneAPI'
+                },
+	     "intel-2022b.eb": {
+                "options": {
+                    "common": false
+                    "eula": 'Intel-oneAPI'
+                }
+            }
+        }
+    ]
+}
+

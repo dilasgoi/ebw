@@ -17,45 +17,30 @@ function load_eb_configuration {
   echo $build_path $hide_deps $install_path $common_path $source_path $gpu_path $robot_paths $modules_tool $hooks
 }
 
-# Function to parse the installation file using yq
 function parse_installation_file {
-    local yaml_file=$1
+    local json_file=$1
+    local EASYCONFIGS=""
 
-    APPLICATION=$(yq e '.application' $yaml_file)
-    VERSION=$(yq e '.version' $yaml_file)
-    TOOLCHAIN=$(yq e '.toolchain // ""' $yaml_file)  # Use an empty string if null
-    TOOLCHAIN_VERSION=$(yq e '.toolchain_version // ""' $yaml_file)  # Use an empty string if null
-    SUFFIX=$(yq e '.suffix // ""' $yaml_file)  # Use an empty string if null
-    PARALLEL=$(yq e '.parallel // ""' $yaml_file)  # Use an empty string if null
-    EULA=$(yq e '.eula // ""' $yaml_file)  # Use an empty string if null
-    GPU=$(yq e '.gpu // false' $yaml_file)  # Use 'false' as default value
-    CUDA_COMPUTE_CAPABILITIES=$(yq e '.cuda_compute_capabilities // ""' $yaml_file)
-    COMMON=$(yq e '.common // false' $yaml_file)  # Use 'false' as default value
-    COMMENTS=$(yq e '.comments' $yaml_file)
+    local easyconfigs_length=$(jq '.easyconfigs | length' $json_file)
 
-    EASYCONFIG="${APPLICATION}-${VERSION}"
+    for (( easyconfig_index=0; easyconfig_index<$easyconfigs_length; easyconfig_index++ )); do
+        local easyconfig=$(jq -r ".easyconfigs[$easyconfig_index] | keys[0]" $json_file)
+        local common=$(jq -r --arg KEY "$easyconfig" ".easyconfigs[$easyconfig_index][$KEY].options.common // \"false\"" $json_file)
+        local gpu=$(jq -r --arg KEY "$easyconfig" ".easyconfigs[$easyconfig_index][$KEY].options.gpu // \"false\"" $json_file)
+        local cuda_compute_capabilities=$(jq -r --arg KEY "$easyconfig" ".easyconfigs[$easyconfig_index][$KEY].options.cuda_compute_capabilities // \"\"" $json_file)
 
-    if [ -n "$TOOLCHAIN" ]; then
-        EASYCONFIG+="-${TOOLCHAIN}"
-    fi
+        # Construct the line
+        local line="Easyconfig: $easyconfig | Common: $common | GPU: $gpu | CUDA Compute Capabilities: $cuda_compute_capabilities"
 
-    if [ -n "$TOOLCHAIN_VERSION" ]; then
-        EASYCONFIG+="-${TOOLCHAIN_VERSION}"
-    fi
+        # Add the line to the EASYCONFIGS variable
+        if [ -z "$EASYCONFIGS" ]; then
+            EASYCONFIGS="$line"
+        else
+            EASYCONFIGS="$EASYCONFIGS;$line"
+        fi
+    done
 
-    if [ -n "$SUFFIX" ]; then
-        EASYCONFIG+="-${SUFFIX}"
-    fi
-
-    # Override installpath if common is set to true
-    if [ "${COMMON}" == "true" ]; then
-        INSTALL_PATH=${COMMON_PATH}
-    fi
-
-    # Override installpath if gou is set to true
-    if [ "${GPU}" == "true" ]; then
-        INSTALL_PATH=${GPU_PATH}
-    fi
+    echo "$EASYCONFIGS"
 }
 
 # Function to create the EasyBuild command
@@ -69,7 +54,7 @@ function create_eb_command {
   local hooks=$7
   local easyconfig=$8
 
-  echo "eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}.eb"
+  echo "eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}"
 }
  
 function add_optional_options {

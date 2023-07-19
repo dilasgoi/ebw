@@ -1,0 +1,19 @@
+{
+    "easyconfigs": [
+        {
+            "foss-2021a.eb": {
+                "options": {
+                }
+            },
+            "foss-2022a.eb": {
+                "options": {
+                }
+            },
+            "foss-2022b.eb": {
+                "options": {
+                }
+            }
+        }
+    ]
+}
+
