@@ -1,0 +1,19 @@
+Thu Jul 20 17:50:50 CEST 2023: Installation started for Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1.eb by Diego
+YAML file content:
+{
+    "easyconfigs": [
+	{
+            "name": "CUDA-11.4.1.eb",
+            "options": {
+                "common": true
+            }
+        },    
+        {
+            "name": "Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1.eb",
+            "options": {}
+        }
+    ]
+}
+
+SHA256 hash of the YAML file:
+de21806a8d2329a8ccb1aac00a6a6d84d4fff3554893333a6bb543709e82f236  /scicomp/admin/easybuild/eb_wrapper/bin/../installation_files/a/Amber.json
