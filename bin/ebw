@@ -38,6 +38,10 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
     GPU=${FIELDS[2]#*: }  # remove prefix up to colon and space
     CUDA_COMPUTE_CAPABILITIES=${FIELDS[3]#*: }  # remove prefix up to colon and space
 
+    if [ ${COMMON} == "true" ]; then
+        INSTALL_PATH=${COMMON_PATH}
+    fi
+
     # Create the installation command
     EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 

@@ -1,0 +1,9 @@
+{
+    "easyconfigs": [
+        {
+            "name": "LAMMPS-23Jun2022-foss-2022a-kokkos.eb",
+            "options": {}
+        }
+    ]
+}
+

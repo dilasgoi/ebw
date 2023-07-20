@@ -1,0 +1,17 @@
+Thu Jul 20 17:47:50 CEST 2023: Installation started for QuantumESPRESSO-7.1-foss-2022a.eb by Diego
+YAML file content:
+{
+    "easyconfigs": [
+        {
+            "name": "QuantumESPRESSO-7.1-intel-2022a.eb",
+            "options": {}
+        },
+        {
+            "name": "QuantumESPRESSO-7.1-foss-2022a.eb",
+            "options": {}
+        }
+    ]
+}
+
+SHA256 hash of the YAML file:
+abd2c51df2face7fd70f21447273b8ba6e2620c094c836daa8dc2f66560ecf90  /scicomp/admin/easybuild/eb_wrapper/bin/../installation_files/q/QuantumESPRESSO.json

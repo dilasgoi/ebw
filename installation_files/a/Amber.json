@@ -1,0 +1,15 @@
+{
+    "easyconfigs": [
+	{
+            "name": "CUDA-11.4.1.eb",
+            "options": {
+                "common": true
+            }
+        },    
+        {
+            "name": "Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1.eb",
+            "options": {}
+        }
+    ]
+}
+
