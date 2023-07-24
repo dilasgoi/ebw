@@ -2,7 +2,7 @@
 
 This project is a simple command-line wrapper for the [EasyBuild](https://easybuild.io/) framework that facilitates software building and installation in HPC environments. It enables homogeneous reproducible installations defined through JSON files and options for dry runs, common installations, GPU-specific installations, and defining CUDA compute capabilities.
 
-It follows a similar approach as the one described in the [EasyBuild documentation about Easystacks](https://docs.easybuild.io/easystack-files/), but offers simplicity and more flexible customization options. A combination of Easystacks and EasyBuild Hooks should, in any case, be a more general native approach.
+It follows a similar approach as the one described in the [EasyBuild documentation about Easystacks](https://docs.easybuild.io/easystack-files/), but offers simplicity and more flexible customization options. However, utilizing both easystacks and hooks should generally provide a more authentic solution.
 
 ## Table of Contents
 - [Usage](#usage)
