@@ -23,8 +23,6 @@ check_file_exists "$FILENAME" || { echo "The file ${FILENAME} was not found"; ex
 
 # Parse the installation file 
 EASYCONFIGS=$(parse_installation_file "${FILENAME}")
-echo "THIS ARE THE EASYCONFIGS"
-echo ${EASYCONFIGS}
 
 # Loop over each easyconfig string
 IFS=';' read -ra EASYCONFIG_STRINGS <<< "$EASYCONFIGS"
