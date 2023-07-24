@@ -33,6 +33,10 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
     GPU=${FIELDS[2]#*: }  # remove prefix up to colon and space
     CUDA_COMPUTE_CAPABILITIES=${FIELDS[3]#*: }  # remove prefix up to colon and space
     ENABLED=${FIELDS[4]#*: }  # remove prefix up to colon and space
+    EULA=${FIELDS[5]#*: }  # remove prefix up to colon and space
+    PARALLEL=${FIELDS[6]#*: }  # remove prefix up to colon and space
+
+    echo ${EASYCONFIG_STRING}
 
     if [ "${ENABLED}" == "false" ]; then
         continue  # Skip to next iteration if this easyconfig is not enabled
@@ -44,16 +48,15 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
     # Create the installation command
     EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 
+    # Use the add_optional_options function to add optional flags to the command
+    EB_COMMAND=$(add_optional_options "${EB_COMMAND}" "${PARALLEL}" "${EULA}" "${GPU}" "${CUDA_COMPUTE_CAPABILITIES}")
+
     # If not a dry run, prepare for logging and run eb
     if [ ${DRYRUN} -eq 0 ]; then
         # Prepare for logging
         TIMESTAMP="$(date +%Y%m%d%H%M%S)"
         LOGDIR="${SCRIPT_DIR}/../logs"
         LOGFILE="${LOGDIR}/$(echo "${EASYCONFIG}" | sed 's/\.eb$//')-${TIMESTAMP}.log"
-
-        # Trap the ERR and SIGINT signals
-        trap 'handle_error $LINENO $?' ERR
-        trap 'handle_sigint' SIGINT
 
         # Register the start time and the easyconfig name
         echo "$(date): Installation started for ${EASYCONFIG} by ${USERNAME}" | tee -a "${LOGFILE}"

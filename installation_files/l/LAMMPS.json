@@ -1,8 +1,21 @@
 {
     "easyconfigs": [
         {
+            "name": "CUDA-11.4.1.eb",
+            "options": {
+                "common": true
+            }
+        },    
+        {
             "name": "LAMMPS-23Jun2022-foss-2022a-kokkos.eb",
             "options": {}
+        },
+	{
+            "name": "LAMMPS-23Jun2022-foss-2021b-kokkos-CUDA-11.4.1.eb",
+            "options": {
+	        "gpu": "true",
+		"cuda_compute_capabilities": "7.5,8.0"
+	    }
         }
     ]
 }

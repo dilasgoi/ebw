@@ -35,9 +35,12 @@ function parse_installation_file {
         local common=$(jq -r ".easyconfigs[$easyconfig_index].options.common // \"false\"" $json_file)
         local gpu=$(jq -r ".easyconfigs[$easyconfig_index].options.gpu // \"false\"" $json_file)
         local cuda_compute_capabilities=$(jq -r ".easyconfigs[$easyconfig_index].options.cuda_compute_capabilities // \"\"" $json_file)
+	local enabled=$(jq -r ".easyconfigs[$easyconfig_index].options.eula // \"false\"" $json_file)
+	local eula=$(jq -r ".easyconfigs[$easyconfig_index].options.eula // \"false\"" $json_file)
+	local parallel=$(jq -r ".easyconfigs[$easyconfig_index].options.parallel // \"\"" $json_file)
 
         # Construct the line
-        local line="Easyconfig: $easyconfig | Common: $common | GPU: $gpu | CUDA Compute Capabilities: $cuda_compute_capabilities"
+        local line="Easyconfig: $easyconfig | Common: $common | GPU: $gpu | CUDA Compute Capabilities: $cuda_compute_capabilities | Enabled: $enabled | EULA: $eula | Parallel: $parallel"
 
         # Add the line to the EASYCONFIGS variable
         if [ -z "$EASYCONFIGS" ]; then
@@ -67,25 +70,29 @@ function create_eb_command {
 function add_optional_options {
   local eb_command=$1
   local parallel=$2
-  local eula=$3
-  local gpu=$4
-  local cuda_compute_capability=$5
+  local eula=$(echo $3 | xargs)
+  local gpu=$(echo $4 | xargs)
+  local cuda_compute_capabilities=$5
 
   local -a commands_array  # Array to store all commands
 
-  # If PARALLEL is not empty, add --parallel option
-  if [ -n "${parallel}" ]; then
+  # If PARALLEL is not empty, not 'false', and numeric, add --parallel option
+  if [[ -n "${parallel}" && "${parallel}" != "false" && "${parallel}" =~ ^[0-9]+$ ]]; then
+    eb_command+=" --parallel=${parallel}"
+  # If PARALLEL is not empty, not 'false', and not numeric, set to 1 and add --parallel option
+  elif [[ -n "${parallel}" && "${parallel}" != "false" ]]; then
+    parallel=1
     eb_command+=" --parallel=${parallel}"
   fi
-
-  # If EULA is not empty, add --accept-eula-for option
-  if [ -n "${eula}" ]; then
+  
+  # If EULA is not empty or 'false', add --accept-eula-for option
+  if [[ -n "${eula}" && "${eula}" != "false" ]]; then
     eb_command+=" --accept-eula-for=${eula}"
   fi
 
   # If GPU is true, add --cuda-compute-capabilities option for each capability
-  if [ "${gpu}" == "true" ] && [ -n "${cuda_compute_capability}" ]; then
-      eb_command+=" --cuda-compute-capabilities=${cuda_compute_capability}"
+  if [ "${gpu}" == "true" ] && [ -n "${cuda_compute_capabilities}" ]; then
+    eb_command+=" --cuda-compute-capabilities=${cuda_compute_capabilities}"
   fi
 
   echo "${eb_command}"
