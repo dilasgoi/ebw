@@ -80,8 +80,6 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
         post_execution_summary "${FILENAME}" "${APPLICATION}" "${VERSION}" "${TOOLCHAIN}" \
                                    "${TOOLCHAIN_VERSION}" "${SUFFIX}" "${PARALLEL}" "${EASYCONFIG}" \
                                    "${EB_COMMAND}" "${LOGFILE}"
-
-        log_to_history "${TIMESTAMP}" "${EASYCONFIG}" "${EXIT_STATUS}" "${LOGDIR}"
     else
         # Dry run
         echo "Performing dry run for ${EASYCONFIG}"
