@@ -89,7 +89,6 @@ ebw -f AlphaFold.json
 │   ├── Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1-20230720175050.log
 │   ├── CUDA-11.4.1-20230720174837.log
 │   ├── CUDA-11.7.0-20230720180224.log
-│   └── history
 └── README.md
 ```
 
