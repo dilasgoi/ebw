@@ -9,11 +9,10 @@ source "${SCRIPT_DIR}/../lib/utils.sh"
 source "${SCRIPT_DIR}/../lib/checks.sh"
 
 # Call parse_arguments function from utils.sh
-read -r FILENAME USERNAME DRYRUN < <(parse_arguments "$@")
+read -r FILENAME DRYRUN < <(parse_arguments "$@")
 
 # Check if a filename and username have been provided
 check_filename "${FILENAME}" || exit 1
-check_username "${USERNAME}" || exit 1
 
 # Search for the file in the script directory and its subdirectories
 FILENAME=$(find "${SCRIPT_DIR}/.." -type f -name "${FILENAME}")
@@ -77,7 +76,7 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
                           "${EASYCONFIG}" \
                           "${LOGFILE}"
 
-        post_execution_summary "${FILENAME}" "${USERNAME}" "${APPLICATION}" "${VERSION}" "${TOOLCHAIN}" \
+        post_execution_summary "${FILENAME}" "${APPLICATION}" "${VERSION}" "${TOOLCHAIN}" \
                                    "${TOOLCHAIN_VERSION}" "${SUFFIX}" "${PARALLEL}" "${EASYCONFIG}" \
                                    "${EB_COMMAND}" "${LOGFILE}"
 

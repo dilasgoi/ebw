@@ -1,8 +1,8 @@
 # EasyBuild Command-Line Wrapper
 
-This project is a simple command-line wrapper for the [EasyBuild](https://easybuild.io/) framework that facilitates software building and installation in HPC environments. It enables homogeneous reproducible installations defined through JSON files and options for dry runs, common installations, GPU-specific installations, and defining CUDA compute capabilities.
+This project is a simple command-line wrapper for the [EasyBuild](https://easybuild.io/) framework that facilitates software building and installation in HPC environments. It enables homogeneous reproducible installations defined through JSON files and options for dry runs, common installations, GPU-specific installations, and defining CUDA compute capabilities. One central objective of this project is to monitor successful installations, enabling the complete reproduction of the software stack when required.
 
-It follows a similar approach as the one described in the [EasyBuild documentation about Easystacks](https://docs.easybuild.io/easystack-files/), but offers simplicity and more flexible customization options. However, utilizing both easystacks and hooks should generally provide a more authentic solution.
+It follows a similar approach as the one described in the [EasyBuild documentation about Easystacks](https://docs.easybuild.io/easystack-files/), but offers simplicity and flexible customization options out of the EasyBuild Framework. However, utilizing both easystacks and hooks should generally provide a more general and authentic solution.
 
 ## Table of Contents
 - [Usage](#usage)

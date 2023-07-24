@@ -4,28 +4,24 @@
 function parse_arguments {
   local dryrun=0
   local filename=""
-  local username=""
 
-  while getopts "f:u:d" opt; do
+  while getopts "f:d" opt; do
     case ${opt} in
         f )
             filename=$OPTARG
-            ;;
-        u )
-            username=$OPTARG
             ;;
         d )
             dryrun=1
             ;;
         \? )
-            echo "Usage: $(basename $0) -f <installation_file.yaml> -u <username> [-d]"
+            echo "Usage: $(basename $0) -f <installation_file.yaml> [-d]"
             exit 1
             ;;
     esac
   done
   shift $((OPTIND -1))
 
-  echo $filename $username $dryrun
+  echo $filename $dryrun
 }
 
 
@@ -33,16 +29,7 @@ function parse_arguments {
 function check_filename {
     local filename=$1
     if [ -z "$filename" ]; then
-        echo "Error: Filename is required. Usage: $(basename $0) -f <installation_file.yaml> -u <username> [-d]"
-        return 1
-    fi
-}
-
-# Function to check if a username has been provided
-function check_username {
-    local username=$1
-    if [ -z "$username" ]; then
-        echo "Error: Username is required. Usage: $(basename $0) -f <installation_file.yaml> -u <username> [-d]"
+        echo "Error: Filename is required. Usage: $(basename $0) -f <installation_file.yaml> [-d]"
         return 1
     fi
 }

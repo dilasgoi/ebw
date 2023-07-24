@@ -3,20 +3,18 @@
 # Function to create a post-execution summary
 function post_execution_summary {
     local filename=$1
-    local username=$2
-    local application=$3
-    local version=$4
-    local toolchain=$5
-    local toolchain_version=$6
-    local suffix=$7
-    local parallel=$8
-    local easyconfig=$9
-    local eb_command=${10}
-    local logfile=${11}
+    local application=$2
+    local version=$3
+    local toolchain=$4
+    local toolchain_version=$5
+    local suffix=$6
+    local parallel=$7
+    local easyconfig=$8
+    local eb_command=$9
+    local logfile=${10}
 
     echo "==== Post-execution Summary ====" | tee -a "${logfile}"
     echo "Installation File: ${filename}" | tee -a "${logfile}"
-    echo "Username: ${username}" | tee -a "${logfile}"
     echo "Application: ${application}" | tee -a "${logfile}"
     echo "Version: ${version}" | tee -a "${logfile}"
     if [ -n "$toolchain" ]; then echo "Toolchain: ${toolchain}" | tee -a "${logfile}"; fi
