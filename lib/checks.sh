@@ -24,7 +24,6 @@ function parse_arguments {
   echo $filename $dryrun
 }
 
-
 # Function to check if a filename has been provided
 function check_filename {
     local filename=$1

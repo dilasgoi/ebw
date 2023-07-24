@@ -17,8 +17,9 @@ check_filename "${FILENAME}" || exit 1
 # Search for the file in the script directory and its subdirectories
 FILENAME=$(find "${SCRIPT_DIR}/.." -type f -name "${FILENAME}")
 
-# Check if the file exists
-check_file_exists "$FILENAME" || { echo "The file ${FILENAME} was not found"; exit 1; }
+# Check if a filename has been provided
+check_filename "${FILENAME}" || exit 1
+check_file_exists "${FILENAME}" || exit 1
 
 # Parse the installation file 
 EASYCONFIGS=$(parse_installation_file "${FILENAME}")

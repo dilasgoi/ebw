@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "Julia-1.9.0-linux-x86_64.eb",
+            "options": {
+                "common": true
+            }
+        }
+    ]
+}
+
