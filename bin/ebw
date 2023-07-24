@@ -21,10 +21,7 @@ FILENAME=$(find "${SCRIPT_DIR}/.." -type f -name "${FILENAME}")
 # Check if the file exists
 check_file_exists "$FILENAME" || { echo "The file ${FILENAME} was not found"; exit 1; }
 
-# Load EasyBuild's configuration
-read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
-
-# Parse the installation file file
+# Parse the installation file 
 EASYCONFIGS=$(parse_installation_file "${FILENAME}")
 echo "THIS ARE THE EASYCONFIGS"
 echo ${EASYCONFIGS}
@@ -37,6 +34,14 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
     COMMON=${FIELDS[1]#*: }  # remove prefix up to colon and space
     GPU=${FIELDS[2]#*: }  # remove prefix up to colon and space
     CUDA_COMPUTE_CAPABILITIES=${FIELDS[3]#*: }  # remove prefix up to colon and space
+    ENABLED=${FIELDS[4]#*: }  # remove prefix up to colon and space
+
+    if [ "${ENABLED}" == "false" ]; then
+        continue  # Skip to next iteration if this easyconfig is not enabled
+    fi
+
+    # Load EasyBuild's configuration
+    read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration ${COMMON})
 
     # Create the installation command
     EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
@@ -46,21 +51,21 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
         # Prepare for logging
         TIMESTAMP="$(date +%Y%m%d%H%M%S)"
         LOGDIR="${SCRIPT_DIR}/../logs"
-	LOGFILE="${LOGDIR}/$(echo "${EASYCONFIG}" | sed 's/\.eb$//')-${TIMESTAMP}.log"
+        LOGFILE="${LOGDIR}/$(echo "${EASYCONFIG}" | sed 's/\.eb$//')-${TIMESTAMP}.log"
 
-	# Trap the ERR and SIGINT signals
+        # Trap the ERR and SIGINT signals
         trap 'handle_error $LINENO $?' ERR
         trap 'handle_sigint' SIGINT
 
         # Register the start time and the easyconfig name
         echo "$(date): Installation started for ${EASYCONFIG} by ${USERNAME}" | tee -a "${LOGFILE}"
 
-        # Log the content of the YAML file
-        echo "YAML file content:" | tee -a "${LOGFILE}"
+        # Log the content of the JSON file
+        echo "JSON file content:" | tee -a "${LOGFILE}"
         cat "${FILENAME}" | tee -a "${LOGFILE}"
 
-        # Log the SHA256 hash of the YAML file
-        echo "SHA256 hash of the YAML file:" | tee -a "${LOGFILE}"
+        # Log the SHA256 hash of the JSON file
+        echo "SHA256 hash of the JSON file:" | tee -a "${LOGFILE}"
         sha256sum "${FILENAME}" | tee -a "${LOGFILE}"
 
         ${EB_COMMAND} -r --trace

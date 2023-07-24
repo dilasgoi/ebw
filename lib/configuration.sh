@@ -4,6 +4,7 @@
 function load_eb_configuration {
   local script_dir=$(dirname "$0")
   local conf_file="${script_dir}/../config/settings.yaml"
+  local common=$1  # common path flag from argument
   local build_path=$(yq e '.buildpath' ${conf_file})
   local hide_deps=$(yq e '.hide-deps' ${conf_file})
   local install_path=$(yq e '.installpath' ${conf_file})
@@ -13,6 +14,11 @@ function load_eb_configuration {
   local robot_paths=$(yq e '.robot-paths' ${conf_file})
   local modules_tool=$(yq e '.modules-tool' ${conf_file})
   local hooks=$(yq e '.hooks' ${conf_file})
+
+  # Override install path if common is true
+  if [ "${common}" == "true" ]; then
+    install_path=${common_path}
+  fi
 
   echo $build_path $hide_deps $install_path $common_path $source_path $gpu_path $robot_paths $modules_tool $hooks
 }
