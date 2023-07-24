@@ -140,7 +140,7 @@ Example `AlphaFold.json` file:
 
 ## EasyBuild Configuration
 
-The wrapper retrieves its configuration from the `config/settings.yaml` file and overrides the system-wide EasyBuild installation configuration. This file includes settings such as the installation path, source path, build path, and a list of dependencies to hide. These configurations were previously set through environment variables or command-line arguments.
+The wrapper retrieves its configuration from the `config/settings.yaml` file and overrides the system-wide EasyBuild installation configuration. This file includes settings such as the installation path, source path, build path, and a list of dependencies to hide. These configurations were previously set through environment variables or configuration files.
 
 The fields in the `settings.yaml` file represent the following:
 
