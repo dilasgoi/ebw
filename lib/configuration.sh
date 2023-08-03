@@ -23,36 +23,6 @@ function load_eb_configuration {
   echo $build_path $hide_deps $install_path $common_path $source_path $gpu_path $robot_paths $modules_tool $hooks
 }
 
-# Function to parse the installation file
-function parse_installation_file {
-    local json_file=$1
-    local EASYCONFIGS=""
-
-    local easyconfigs_length=$(jq '.easyconfigs | length' $json_file)
-
-    for (( easyconfig_index=0; easyconfig_index<$easyconfigs_length; easyconfig_index++ )); do
-        local easyconfig=$(jq -r ".easyconfigs[$easyconfig_index].name" $json_file)
-        local common=$(jq -r ".easyconfigs[$easyconfig_index].options.common // \"false\"" $json_file)
-        local gpu=$(jq -r ".easyconfigs[$easyconfig_index].options.gpu // \"false\"" $json_file)
-        local cuda_compute_capabilities=$(jq -r ".easyconfigs[$easyconfig_index].options.cuda_compute_capabilities // \"\"" $json_file)
-	local enabled=$(jq -r ".easyconfigs[$easyconfig_index].options.eula // \"false\"" $json_file)
-	local eula=$(jq -r ".easyconfigs[$easyconfig_index].options.eula // \"false\"" $json_file)
-	local parallel=$(jq -r ".easyconfigs[$easyconfig_index].options.parallel // \"\"" $json_file)
-
-        # Construct the line
-        local line="Easyconfig: $easyconfig | Common: $common | GPU: $gpu | CUDA Compute Capabilities: $cuda_compute_capabilities | Enabled: $enabled | EULA: $eula | Parallel: $parallel"
-
-        # Add the line to the EASYCONFIGS variable
-        if [ -z "$EASYCONFIGS" ]; then
-            EASYCONFIGS="$line"
-        else
-            EASYCONFIGS="$EASYCONFIGS;$line"
-        fi
-    done
-
-    echo "$EASYCONFIGS"
-}
-
 # Function to create the EasyBuild command
 function create_eb_command {
   local build_path=$1
@@ -66,35 +36,54 @@ function create_eb_command {
 
   echo "eb --buildpath=${build_path} --hide-deps=${hide_deps} --installpath=${install_path} --sourcepath=${source_path} --robot-paths=${robot_paths} --modules-tool=${modules_tool} --hooks=${hooks} ${easyconfig}"
 }
- 
-function add_optional_options {
+
+# Function to add options from the JSON file to the eb command
+function add_options {
   local eb_command=$1
-  local parallel=$2
-  local eula=$(echo $3 | xargs)
-  local gpu=$(echo $4 | xargs)
-  local cuda_compute_capabilities=$5
+  local json_file=$2
+  local easyconfig_index=$3
 
-  local -a commands_array  # Array to store all commands
+  local option_keys=$(jq -r ".easyconfigs[$easyconfig_index].options | keys[]" $json_file)
 
-  # If PARALLEL is not empty, not 'false', and numeric, add --parallel option
-  if [[ -n "${parallel}" && "${parallel}" != "false" && "${parallel}" =~ ^[0-9]+$ ]]; then
-    eb_command+=" --parallel=${parallel}"
-  # If PARALLEL is not empty, not 'false', and not numeric, set to 1 and add --parallel option
-  elif [[ -n "${parallel}" && "${parallel}" != "false" ]]; then
-    parallel=1
-    eb_command+=" --parallel=${parallel}"
-  fi
-  
-  # If EULA is not empty or 'false', add --accept-eula-for option
-  if [[ -n "${eula}" && "${eula}" != "false" ]]; then
-    eb_command+=" --accept-eula-for=${eula}"
-  fi
+  for option_key in $option_keys; do
+    local option_value=$(jq -r ".easyconfigs[$easyconfig_index].options[\"$option_key\"]" $json_file)
 
-  # If GPU is true, add --cuda-compute-capabilities option for each capability
-  if [ "${gpu}" == "true" ] && [ -n "${cuda_compute_capabilities}" ]; then
-    eb_command+=" --cuda-compute-capabilities=${cuda_compute_capabilities}"
-  fi
+    if [[ -n "$option_value" && "$option_value" != "false" ]]; then
+      eb_command+=" --${option_key}=${option_value}"
+    fi
+  done
 
-  echo "${eb_command}"
+  echo "$eb_command"
+}
+
+# Function to add custom options from the JSON file to the eb command
+function add_custom_options {
+  local eb_command=$1
+  local json_file=$2
+  local easyconfig_index=$3
+  local install_path=$4
+  local common_path=$5
+  local gpu_path=$6
+
+  local custom_options_length=$(jq ".easyconfigs[$easyconfig_index][\"custom-options\"] // [] | length" $json_file)
+
+  for (( custom_option_index=0; custom_option_index<$custom_options_length; custom_option_index++ )); do
+    local custom_option_key=$(jq -r ".easyconfigs[$easyconfig_index][\"custom-options\"][$custom_option_index].key" $json_file)
+    local custom_option_value=$(jq -r ".easyconfigs[$easyconfig_index][\"custom-options\"][$custom_option_index].value" $json_file)
+
+    if [[ -n "$custom_option_value" && "$custom_option_value" != "false" ]]; then
+      # Treat 'common' and 'gpu' options specially
+      if [ "$custom_option_key" == "common" ] && [ "$custom_option_value" == "true" ]; then
+        eb_command=${eb_command/--installpath=${install_path}/--installpath=${common_path}}
+      elif [ "$custom_option_key" == "gpu" ] && [ "$custom_option_value" == "true" ]; then
+        eb_command=${eb_command/--installpath=${install_path}/--installpath=${gpu_path}}
+      else
+        # Modify the corresponding part of eb_command with the new value for all other options
+        eb_command=${eb_command/--${custom_option_key}=${!custom_option_key}/--${custom_option_key}=${custom_option_value}}
+      fi
+    fi
+  done
+
+  echo "$eb_command"
 }
 

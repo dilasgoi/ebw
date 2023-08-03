@@ -1,0 +1,64 @@
+Checking if /scicomp/admin/easybuild/ebw/bin/../installation_files/l/LAMMPS.json exists
+jq: error (at /scicomp/admin/easybuild/ebw/bin/../installation_files/l/LAMMPS.json:23): Cannot index object with number
+jq: error (at /scicomp/admin/easybuild/ebw/bin/../installation_files/l/LAMMPS.json:23): Cannot index object with number
+Thu Aug  3 15:22:43 CEST 2023: Installation started for CUDA-11.4.1.eb
+JSON file content:
+{
+    "easyconfigs": [
+        {
+            "name": "CUDA-11.4.1.eb",
+	    "options": {
+                "parallel": "12"
+            },
+            "custom_options": {
+                "common": true
+            }
+        },    
+        {
+            "name": "LAMMPS-23Jun2022-foss-2022a-kokkos.eb",
+            "options": {}
+        },
+	{
+            "name": "LAMMPS-23Jun2022-foss-2021b-kokkos-CUDA-11.4.1.eb",
+            "options": {
+		"cuda_compute_capabilities": "7.5,8.0"
+	    }
+        }
+    ]
+}
+SHA256 hash of the JSON file:
+e6b67b973ee296dff8d22e46c12f567970821e28ee0fa71da50abdf002d460bc  /scicomp/admin/easybuild/ebw/bin/../installation_files/l/LAMMPS.json
+
+WARNING: signal received (2), cleaning up locks ()...
+
+ERROR: Cancelled by user: keyboard interrupt
+== Temporary log file in case of crash /tmp/eb-5mg27sol/easybuild-azt305a7.log
+== found valid index for /scicomp/builds/Rocky/8.7/Skylake/software/EasyBuild/4.8.0/easybuild/easyconfigs, so using it...
+Thu Aug  3 15:22:44 CEST 2023: Installation started for LAMMPS-23Jun2022-foss-2022a-kokkos.eb
+JSON file content:
+{
+    "easyconfigs": [
+        {
+            "name": "CUDA-11.4.1.eb",
+	    "options": {
+                "parallel": "12"
+            },
+            "custom_options": {
+                "common": true
+            }
+        },    
+        {
+            "name": "LAMMPS-23Jun2022-foss-2022a-kokkos.eb",
+            "options": {}
+        },
+	{
+            "name": "LAMMPS-23Jun2022-foss-2021b-kokkos-CUDA-11.4.1.eb",
+            "options": {
+		"cuda_compute_capabilities": "7.5,8.0"
+	    }
+        }
+    ]
+}
+SHA256 hash of the JSON file:
+e6b67b973ee296dff8d22e46c12f567970821e28ee0fa71da50abdf002d460bc  /scicomp/admin/easybuild/ebw/bin/../installation_files/l/LAMMPS.json
+ERROR: Undefined build option: 'silent'. Make sure you have set up the EasyBuild configuration using set_up_configuration() (from easybuild.tools.options) in case you're not using EasyBuild via the 'eb' CLI.

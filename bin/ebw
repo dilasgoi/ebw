@@ -21,35 +21,31 @@ FILENAME=$(find "${SCRIPT_DIR}/.." -type f -name "${FILENAME}")
 check_filename "${FILENAME}" || exit 1
 check_file_exists "${FILENAME}" || exit 1
 
-# Parse the installation file 
-EASYCONFIGS=$(parse_installation_file "${FILENAME}")
+# Extract the easyconfigs from the JSON file
+EASYCONFIGS_LENGTH=$(jq -r ".easyconfigs | length" ${FILENAME})
 
-# Loop over each easyconfig string
-IFS=';' read -ra EASYCONFIG_STRINGS <<< "$EASYCONFIGS"
-for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
-    IFS='|' read -ra FIELDS <<< "$EASYCONFIG_STRING"
-    EASYCONFIG=$(echo ${FIELDS[0]#*: } | tr -d ' ')  # remove prefix up to colon and space
-    COMMON=${FIELDS[1]#*: }  # remove prefix up to colon and space
-    GPU=${FIELDS[2]#*: }  # remove prefix up to colon and space
-    CUDA_COMPUTE_CAPABILITIES=${FIELDS[3]#*: }  # remove prefix up to colon and space
-    ENABLED=${FIELDS[4]#*: }  # remove prefix up to colon and space
-    EULA=${FIELDS[5]#*: }  # remove prefix up to colon and space
-    PARALLEL=${FIELDS[6]#*: }  # remove prefix up to colon and space
+for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_INDEX++ )); do
+    EASYCONFIG=$(jq -r ".easyconfigs[$EASYCONFIGS_INDEX].name" ${FILENAME})
 
-    echo ${EASYCONFIG_STRING}
+    # Skip to next iteration if this easyconfig is not enabled
+    ENABLED_CUSTOM=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}']["custom-options"] // {} | .enabled // "true"' ${FILENAME})
+    ENABLED_OPTIONS=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}'].options // {} | .enabled // "true"' ${FILENAME})
 
-    if [ "${ENABLED}" == "false" ]; then
-        continue  # Skip to next iteration if this easyconfig is not enabled
+    if [ "${ENABLED_CUSTOM}" == "false" ] && [ "${ENABLED_OPTIONS}" == "false" ]; then
+        continue
     fi
 
     # Load EasyBuild's configuration
-    read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration ${COMMON})
+    read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
 
     # Create the installation command
     EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 
-    # Use the add_optional_options function to add optional flags to the command
-    EB_COMMAND=$(add_optional_options "${EB_COMMAND}" "${PARALLEL}" "${EULA}" "${GPU}" "${CUDA_COMPUTE_CAPABILITIES}")
+    # Use the add_options function to add options from the JSON file to the command
+    EB_COMMAND=$(add_options "${EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}")
+
+    # Use the add_custom_options function to modify the command for custom options from the JSON file
+    EB_COMMAND=$(add_custom_options "${EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}" "${INSTALL_PATH}" "${COMMON_PATH}" "${GPU_PATH}")
 
     # If not a dry run, prepare for logging and run eb
     if [ ${DRYRUN} -eq 0 ]; then
@@ -59,7 +55,7 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
         LOGFILE="${LOGDIR}/$(echo "${EASYCONFIG}" | sed 's/\.eb$//')-${TIMESTAMP}.log"
 
         # Register the start time and the easyconfig name
-        echo "$(date): Installation started for ${EASYCONFIG} by ${USERNAME}" | tee -a "${LOGFILE}"
+        echo "$(date): Installation started for ${EASYCONFIG}" | tee -a "${LOGFILE}"
 
         # Log the content of the JSON file
         echo "JSON file content:" | tee -a "${LOGFILE}"
@@ -70,16 +66,15 @@ for EASYCONFIG_STRING in "${EASYCONFIG_STRINGS[@]}"; do
         sha256sum "${FILENAME}" | tee -a "${LOGFILE}"
 
         ${EB_COMMAND} -r --trace
-        EXIT_STATUS=$?
+        #EXIT_STATUS=$?
 
         # Call the function to check the exit status
-        check_exit_status "${EXIT_STATUS}" \
-                          "${EASYCONFIG}" \
-                          "${LOGFILE}"
+        #check_exit_status "${EXIT_STATUS}" \
+        #                  "${EASYCONFIG}" \
+        #                  "${LOGFILE}"
 
-        post_execution_summary "${FILENAME}" "${APPLICATION}" "${VERSION}" "${TOOLCHAIN}" \
-                                   "${TOOLCHAIN_VERSION}" "${SUFFIX}" "${PARALLEL}" "${EASYCONFIG}" \
-                                   "${EB_COMMAND}" "${LOGFILE}"
+        #post_execution_summary "${FILENAME}" "${EASYCONFIG}" \
+        #                           "${EB_COMMAND}" "${LOGFILE}"
     else
         # Dry run
         echo "Performing dry run for ${EASYCONFIG}"
