@@ -15,11 +15,6 @@ function load_eb_configuration {
   local modules_tool=$(yq e '.modules-tool' ${conf_file})
   local hooks=$(yq e '.hooks' ${conf_file})
 
-  # Override install path if common is true
-  if [ "${common}" == "true" ]; then
-    install_path=${common_path}
-  fi
-
   echo $build_path $hide_deps $install_path $common_path $source_path $gpu_path $robot_paths $modules_tool $hooks
 }
 

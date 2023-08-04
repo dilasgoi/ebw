@@ -1,4 +1,21 @@
 #!/bin/bash
+# -----------------------------------------------------------
+# ebw - EasyBuild Command-Line Wrapper
+# 
+# This tool assists in automating software installations in HPC environments 
+# using EasyBuild, with reproducible installations defined through JSON files.
+#
+# Usage: ebw -f <installation_file.json>
+# 
+# Copyright (c) 2023 Diego Lasa
+# This software is distributed under the MIT License
+# 
+# File: ebw
+# Version: 1.0.0
+# Author: Diego Lasa
+# Date: 05-Jul-2023
+# -----------------------------------------------------------
+
 
 # Set absolute path to the main script
 SCRIPT_DIR=$(dirname $(readlink -f $0))
