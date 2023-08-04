@@ -43,15 +43,17 @@ function add_options {
   local json_file=$2
   local easyconfig_index=$3
 
-  local option_keys=$(jq -r ".easyconfigs[$easyconfig_index].options | keys[]" $json_file)
+  if jq -e ".easyconfigs[$easyconfig_index].options != null" $json_file > /dev/null; then
+    local option_keys=$(jq -r ".easyconfigs[$easyconfig_index].options | keys[]" $json_file)
 
-  for option_key in $option_keys; do
-    local option_value=$(jq -r ".easyconfigs[$easyconfig_index].options[\"$option_key\"]" $json_file)
+    for option_key in $option_keys; do
+      local option_value=$(jq -r ".easyconfigs[$easyconfig_index].options[\"$option_key\"]" $json_file)
 
-    if [[ -n "$option_value" && "$option_value" != "false" ]]; then
-      eb_command+=" --${option_key}=${option_value}"
-    fi
-  done
+      if [[ -n "$option_value" && "$option_value" != "false" ]]; then
+        eb_command+=" --${option_key}=${option_value}"
+      fi
+    done
+   fi
 
   echo "$eb_command"
 }
@@ -61,28 +63,18 @@ function add_custom_options {
   local eb_command=$1
   local json_file=$2
   local easyconfig_index=$3
-  local install_path=$4
-  local common_path=$5
-  local gpu_path=$6
 
-  local custom_options_length=$(jq ".easyconfigs[$easyconfig_index][\"custom-options\"] // [] | length" $json_file)
+  if jq -e ".easyconfigs[$easyconfig_index].custom_options != null" $json_file > /dev/null; then  
+    local custom_option_keys=$(jq -r ".easyconfigs[$easyconfig_index].custom_options // {} | keys[]" $json_file)
 
-  for (( custom_option_index=0; custom_option_index<$custom_options_length; custom_option_index++ )); do
-    local custom_option_key=$(jq -r ".easyconfigs[$easyconfig_index][\"custom-options\"][$custom_option_index].key" $json_file)
-    local custom_option_value=$(jq -r ".easyconfigs[$easyconfig_index][\"custom-options\"][$custom_option_index].value" $json_file)
+    for custom_option_key in $custom_option_keys; do
+      local custom_option_value=$(jq -r ".easyconfigs[$easyconfig_index].custom_options[\"$custom_option_key\"]" $json_file)
 
-    if [[ -n "$custom_option_value" && "$custom_option_value" != "false" ]]; then
-      # Treat 'common' and 'gpu' options specially
-      if [ "$custom_option_key" == "common" ] && [ "$custom_option_value" == "true" ]; then
-        eb_command=${eb_command/--installpath=${install_path}/--installpath=${common_path}}
-      elif [ "$custom_option_key" == "gpu" ] && [ "$custom_option_value" == "true" ]; then
-        eb_command=${eb_command/--installpath=${install_path}/--installpath=${gpu_path}}
-      else
-        # Modify the corresponding part of eb_command with the new value for all other options
-        eb_command=${eb_command/--${custom_option_key}=${!custom_option_key}/--${custom_option_key}=${custom_option_value}}
+      if [[ "$custom_option_key" == "common" || "$custom_option_value" == "true" ]]; then
+        eb_command=$(echo $eb_command | sed "s|--installpath=${INSTALL_PATH}|--installpath=${COMMON_PATH}|g")
       fi
-    fi
-  done
+    done
+  fi
 
   echo "$eb_command"
 }
