@@ -49,6 +49,8 @@ The `ebw` tool includes a Bash completion script. The completion script, `ebw_co
 
    Replace `/custom/path/to/installation_files` with the actual path to your installation files.
 
+   You can also replace the default value defined in the completion script.
+
 3. **Reload your Shell Profile**: After making these changes, you may need to reload your shell profile or restart your terminal for the changes to take effect.
 
    ```bash
