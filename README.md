@@ -175,7 +175,7 @@ Example `AlphaFold.json` file:
 
 The `configuration.sh` script in the `lib` directory is used to configure EasyBuild based on the `config/settings.yaml` file and to setup the installation environment depending on the options defined in the installation file. This configuration script overrides the system-wide EasyBuild installation configuration. 
 
-The `settings.yaml` file includes settings such as the installation path, source path, build path, and a list of dependencies to hide. These configurations were previously set through environment variables or configuration files. You can define other EasyBuild configurations according to the [EasyBuild documentation](https://docs.easybuild.io/en/latest/Configuration.html).
+The `settings.yaml` file includes settings such as the installation path, source path, build path, and a list of dependencies to hide. You can define other EasyBuild configurations according to the [EasyBuild documentation](https://docs.easybuild.io/en/latest/Configuration.html).
 
 This is how a typical EasyBuild settings file could look like:
 
@@ -194,11 +194,9 @@ hooks: "/scicomp/admin/easybuild/hooks/eb_hooks.py"
 
 ## Logging
 
-Log files are located in the `logs` directory. Each installation attempt generates a log file named after the software, version, toolchain, optional CUDA version, and timestamp of the attempt. The `logs/history` file contains a summary of all installations.
+Log files are located in the `logs` directory. Each installation attempt generates a log file named after the easyconfig file, and timestamp of the attempt. 
 
 ## Contributions
-
-
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
