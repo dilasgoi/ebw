@@ -1,0 +1,22 @@
+{
+    "easyconfigs": [
+	{
+            "name": "CUDA-11.7.0.eb",
+            "custom_options": {
+                "common": true
+            }
+        },    
+        {
+            "name": "GROMACS-2023.1-foss-2022a-CUDA-11.7.0.eb",
+            "options": {
+                "cuda-compute-capabilities": "7.5,8.0"    
+	    },
+	    "custom_options": {
+                "gpu": true
+	    }
+        },
+	{
+            "name": "GROMACS-2023.1-foss-2022a.eb"
+        }
+    ]
+}

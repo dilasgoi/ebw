@@ -56,10 +56,12 @@ function add_options {
 # Function to add custom options from the JSON file to the eb command
 function add_custom_options {
   local eb_command=$1
+  local original_eb_command=$eb_command  # Store the original value
   local json_file=$2
   local easyconfig_index=$3
+  local install_path_altered=false       # Flag to check if install path was altered
 
-  if jq -e ".easyconfigs[$easyconfig_index].custom_options != null" $json_file > /dev/null; then  
+  if jq -e ".easyconfigs[$easyconfig_index].custom_options != null" $json_file > /dev/null; then
     local custom_option_keys=$(jq -r ".easyconfigs[$easyconfig_index].custom_options // {} | keys[]" $json_file)
 
     for custom_option_key in $custom_option_keys; do
@@ -67,8 +69,14 @@ function add_custom_options {
 
       if [[ "$custom_option_key" == "common" || "$custom_option_value" == "true" ]]; then
         eb_command=$(echo $eb_command | sed "s|--installpath=${INSTALL_PATH}|--installpath=${COMMON_PATH}|g")
+        install_path_altered=true
       fi
     done
+  fi
+
+  # Reset to original value if install path was not altered
+  if [[ "$install_path_altered" == "false" ]]; then
+    eb_command=$original_eb_command
   fi
 
   echo "$eb_command"

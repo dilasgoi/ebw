@@ -1,13 +1,13 @@
 {
     "easyconfigs": [
         {
-            "name": "CUDA-11.7.0",
+            "name": "CUDA-11.7.0.eb",
             "custom_options": {
                 "common": true
             }
         },
         {
-            "name": "NVHPC-23.1-CUDA-11.7.0",
+            "name": "NVHPC-23.1-CUDA-11.7.0.eb",
             "options": {
                 "accept-eula-for": "NVHPC",
                 "cuda-compute-capabilities": "7.5,8.0"

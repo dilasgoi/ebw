@@ -52,13 +52,13 @@ for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_I
     read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
 
     # Create the installation command
-    EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
+    ORIGINAL_EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 
     # Use the add_options function to add options from the JSON file to the command
-    EB_COMMAND=$(add_options "${EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}")
+    MODIFIED_EB_COMMAND=$(add_options "${ORIGINAL_EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}")
 
     # Use the add_custom_options function to modify the command for custom options from the JSON file
-    EB_COMMAND=$(add_custom_options "${EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}" "${INSTALL_PATH}" "${COMMON_PATH}" "${GPU_PATH}")
+    EB_COMMAND=$(add_custom_options "${MODIFIED_EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}" "${INSTALL_PATH}" "${COMMON_PATH}" "${GPU_PATH}")
 
     # If not a dry run, prepare for logging and run eb
     if [ ${DRYRUN} -eq 0 ]; then
