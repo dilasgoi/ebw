@@ -79,15 +79,15 @@ for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_I
         sha256sum "${FILENAME}" | tee -a "${LOGFILE}"
 
         ${EB_COMMAND} -r --trace
-        #EXIT_STATUS=$?
+        EXIT_STATUS=$?
 
         # Call the function to check the exit status
-        #check_exit_status "${EXIT_STATUS}" \
-        #                  "${EASYCONFIG}" \
-        #                  "${LOGFILE}"
+        check_exit_status "${EXIT_STATUS}" \
+                          "${EASYCONFIG}" \
+                          "${LOGFILE}"
 
-        #post_execution_summary "${FILENAME}" "${EASYCONFIG}" \
-        #                           "${EB_COMMAND}" "${LOGFILE}"
+        post_execution_summary "${FILENAME}" "${EASYCONFIG}" \
+                                   "${EB_COMMAND}" "${LOGFILE}"
     else
         # Dry run
         echo "Performing dry run for ${EASYCONFIG}"

@@ -2,6 +2,9 @@
     "easyconfigs": [
         {
             "name": "SLEPc-3.17.2-foss-2022a.eb"
+        },
+	{
+            "name": "SLEPc-3.18.2-intel-2021b.eb"
         }
     ]
 }
