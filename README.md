@@ -29,6 +29,36 @@ For example, to install software defined in `AlphaFold.json`:
 ebw -f AlphaFold.json
 ```
 
+### Bash Completion
+
+The `ebw` tool includes a Bash completion script. The completion script, `ebw_completion.sh`, is located in the `lib` directory. You can enable this feature by:
+
+1. **Source the Completion Script**: If the completion script is stored in a file (e.g., `ebw_completion.sh`), you can enable it by sourcing the script in your shell profile. Add the following line to your `.bashrc` or `.bash_profile`:
+
+   ```bash
+   source /path/to/ebw_completion.sh
+   ```
+
+2. **Set the Installation Files Directory**: You can specify the directory of the installation files by setting the `EBW_INSTALLATION_FILES_DIR` environment variable. If you don't set this variable, the completion script will default to a specified path. Add this line to your `.bashrc` or `.bash_profile` to set the directory:
+
+   ```bash
+   export EBW_INSTALLATION_FILES_DIR="/custom/path/to/installation_files"
+   ```
+
+   Replace `/custom/path/to/installation_files` with the actual path to your installation files.
+
+3. **Reload your Shell Profile**: After making these changes, you may need to reload your shell profile or restart your terminal for the changes to take effect.
+
+   ```bash
+   source ~/.bashrc # or source ~/.bash_profile
+   ```
+   
+With bash completion enabled, you can use the `Tab` key to auto-complete filenames when using the `-f` flag:
+
+```bash
+ebw -f Alph # Press Tab after typing "Alpha" to auto-complete ("AlphaFold", for example) or see available options.
+```
+
 ## Requirements
 
 - EasyBuild 
