@@ -1,0 +1,10 @@
+{
+    "easyconfigs": [
+	{
+	    "name": "matplotlib-3.5.2-foss-2022a.eb"
+	},	
+	{
+            "name": "PETSc-3.17.4-foss-2022a.eb"
+        }
+    ]
+}

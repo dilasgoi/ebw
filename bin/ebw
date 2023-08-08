@@ -28,15 +28,11 @@ source "${SCRIPT_DIR}/../lib/checks.sh"
 # Call parse_arguments function from utils.sh
 read -r FILENAME DRYRUN < <(parse_arguments "$@")
 
-# Check if a filename and username have been provided
-check_filename "${FILENAME}" || exit 1
+# Check existence and set filename
+FILENAME=$(check_filename "${FILENAME}") || exit 1
 
-# Search for the file in the script directory and its subdirectories
-FILENAME=$(find "${SCRIPT_DIR}/.." -type f -name "${FILENAME}")
-
-# Check if a filename has been provided
-check_filename "${FILENAME}" || exit 1
-check_file_exists "${FILENAME}" || exit 1
+# Validate the JSON syntax used in the installation file
+validate_json "$FILENAME" || exit 1
 
 # Extract the easyconfigs from the JSON file
 EASYCONFIGS_LENGTH=$(jq -r ".easyconfigs | length" ${FILENAME})

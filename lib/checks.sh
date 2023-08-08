@@ -24,24 +24,39 @@ function parse_arguments {
   echo $filename $dryrun
 }
 
-# Function to check if a filename has been provided
-function check_filename {
-    local filename=$1
-    if [ -z "$filename" ]; then
-        echo "Error: Filename is required. Usage: $(basename $0) -f <installation_file.yaml> [-d]"
-        return 1
-    fi
+# Function to check the existence of the installation file
+check_filename() {
+  local filename="$1"
+  local found_file
+
+  # First, try to find the file with the given name
+  found_file=$(find "${SCRIPT_DIR}/.." -type f -name "${filename}")
+
+  # If the file is not found, try appending the ".json" extension and search again
+  if [ -z "$found_file" ] && [[ ! "$filename" == *.json ]]; then
+    found_file=$(find "${SCRIPT_DIR}/.." -type f -name "${filename}.json")
+  fi
+
+  if [ -n "$found_file" ]; then
+    echo "$found_file"
+    return 0
+  else
+    echo "Error: File not found." >&2
+    return 1
+  fi
 }
 
-# Function to check if the file exists                                                                                                                                         
-function check_file_exists {
-    local file=$1
-    echo "Checking if $file exists"
+# Function to validate JSON installation file
+validate_json() {
+  local filename="$1"
 
-    if [[ ! -e $file ]]; then
-        echo "File $file not found in the installation_files/ directory"
-        return 1
-    fi
+  # Using 'jq' to check if the file is a valid JSON
+  if ! jq . "$filename" > /dev/null 2>&1; then
+    echo "Error: Invalid JSON file." >&2
+    return 1
+  fi
+
+  return 0
 }
 
 # Function to check the exit status

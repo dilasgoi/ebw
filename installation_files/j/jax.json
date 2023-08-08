@@ -1,0 +1,16 @@
+{
+    "easyconfigs": [
+	{
+	    "name": "matplotlib-3.5.2-foss-2022a.eb"
+	},	
+	{
+            "name": "jax-0.4.4-foss-2022a-CUDA-11.7.0.eb"
+        },    
+        {
+            "name": "jax-0.4.4-foss-2022a.eb",
+            "options": {
+                "cuda-compute-capabilities": "7.5,8.0"    
+	    }
+        }
+    ]
+}
