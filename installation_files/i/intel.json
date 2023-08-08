@@ -3,22 +3,19 @@
         {
 			"name": "intel-2021b.eb",
 			"options": {
-				"common": false,
-				"eula": "Intel-oneAPI"
+				"accept-eula-for": "Intel-oneAPI"
 			}
 		},
 		{
 			"name": "intel-2022a.eb",
 			"options": {
-				"common": false,
-				"eula": "Intel-oneAPI"
+				"accept-eula-for": "Intel-oneAPI"
 			}
 		},
 		{
 			"name": "intel-2022b.eb",
 			"options": {
-				"common": false,
-				"eula": "Intel-oneAPI"
+				"accept-eula-for": "Intel-oneAPI"
 			}
 		}
 	]
