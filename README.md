@@ -29,6 +29,8 @@ For example, to install software defined in `AlphaFold.json`:
 ebw -f AlphaFold.json
 ```
 
+*Note: .json file extension is not mandatory*
+
 ### Bash Completion
 
 The `ebw` tool includes a Bash completion script. The completion script, `ebw_completion.sh`, is located in the `lib` directory. You can enable this feature by:
