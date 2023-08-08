@@ -14,6 +14,21 @@ It follows a similar approach as the one described in the [EasyBuild documentati
 - [Logging](#logging)
 - [Contributions](#contributions)
 
+## Features
+
+- **JSON-based Configuration**: Define installation parameters, recipes, and custom options through JSON files, allowing flexibility and easy version control.
+- **Logging**: Records every installation attempt with information such as start/end times and exit status.
+- **Microarchitecture Flexibility**: Support for both common microarchitecture-independent installations and specific configurations tailored to particular hardware.
+- **Conditional Installation Options**: Enable or disable specific installations or features within the installation JSON files, providing fine-grained control over the process.
+- **Extensible Customization**: Utilize custom options to adapt to various needs, including GPU-specific installations, different versions, toolchains, and more.
+
+## Requirements
+
+- EasyBuild
+- `jq` for JSON parsing
+- `yq` for YAML parsing
+- Bash shell
+
 ## Usage
 
 The main script `ebw` is used with flags to specify the JSON file for installation.
@@ -24,6 +39,7 @@ ebw -f <installation_file.json>
 ```
 
 For example, to install software defined in `AlphaFold.json`:
+
 
 ```bash
 ebw -f AlphaFold.json
@@ -62,23 +78,6 @@ With bash completion enabled, you can use the `Tab` key to auto-complete filenam
 ```bash
 ebw -f Alph # Press Tab after typing "Alpha" to auto-complete ("AlphaFold", for example) or see available options.
 ```
-
-## Requirements
-
-- EasyBuild 
-- `jq` for JSON parsing
-- `yq` for YAML parsing
-- Bash shell
-
-## Features
-
-- **Installations defined through JSON files**: This makes it easy to specify software installation parameters and maintain installation recipes.
-- **Logging**: Every installation attempt is logged with installation start and end time, and the exit status.
-- **Dry run option**: Allows users to see what would be installed and changed without making actual changes.
-- **Microarchitecture independent installation option**: Allows users to install software that is independent of specific microarchitectures by setting the "common" field in the installation JSON file to `true`.
-- **GPU-specific installation option**: Enables users to specify installations that are specific to GPU environments.
-- **CUDA compute capabilities**: Allows users to specify the CUDA compute capabilities for GPU-specific installations, applicable only if `gpu` is set to `true`.
-- **Enabling/disabling installations**: Allows user to enable or disable the installations in the installation JSON files.
 
 ## Project Organization
 
