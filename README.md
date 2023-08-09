@@ -11,6 +11,7 @@ It follows a similar approach as the one described in the [EasyBuild documentati
 - [Installation JSON File Structure](#installation-json-file-structure)
 - [Project Organization](#project-organization)
 - [EasyBuild Configuration](#easybuild-configuration)
+- [Bash completion](#bash-completion)
 - [Logging](#logging)
 - [Contributions](#contributions)
 
@@ -192,7 +193,7 @@ hooks: "/scicomp/admin/easybuild/hooks/eb_hooks.py"
 
 Log files are located in the `logs` directory. Each installation attempt generates a log file named after the easyconfig file, and timestamp of the attempt. 
 
-### Bash Completion
+## Bash Completion
 
 The `ebw` tool includes a Bash completion script. The completion script, `ebw_completion.sh`, is located in the `lib` directory. You can enable this feature by:
 
