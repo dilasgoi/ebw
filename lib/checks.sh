@@ -1,31 +1,7 @@
 #!/bin/bash
 
-# Function to parse arguments
-function parse_arguments {
-  local dryrun=0
-  local filename=""
-
-  while getopts "f:d" opt; do
-    case ${opt} in
-        f )
-            filename=$OPTARG
-            ;;
-        d )
-            dryrun=1
-            ;;
-        \? )
-            echo "Usage: $(basename $0) -f <installation_file.yaml> [-d]"
-            exit 1
-            ;;
-    esac
-  done
-  shift $((OPTIND -1))
-
-  echo $filename $dryrun
-}
-
 # Function to check the existence of the installation file
-check_filename() {
+check_installfile() {
   local filename="$1"
   local found_file
 
@@ -42,6 +18,19 @@ check_filename() {
     return 0
   else
     echo "Error: File not found." >&2
+    return 1
+  fi
+}
+
+# Function to check the existence of the configuration file
+check_configfile() {
+  local configfile="$1"
+
+  if [ -f "$configfile" ]; then
+    echo "$configfile"
+    return 0
+  else
+    echo "Error: Configuration file not found." >&2
     return 1
   fi
 }

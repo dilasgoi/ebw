@@ -31,48 +31,44 @@ It follows a similar approach as the one described in the [EasyBuild documentati
 
 ## Usage
 
-The main script `ebw` is used with flags to specify the JSON file for installation.
+The main script `ebw` is used with flags to specify the JSON file for installation, along with optional flags for a dry run or alternative EasyBuild settings file.
 
 ```bash
 # Standard use
 ebw -f <installation_file.json>
+
+# Dry run (print actions without executing)
+ebw -f <installation_file.json> -d
+
+# Specify an alternative EasyBuild settings file
+ebw -f <installation_file.json> -c <alternative_config_file.yaml>
+
+# Combination of dry run and alternative settings
+ebw -f <installation_file.json> -d -c <alternative_config_file.yaml>
 ```
 
 For example, to install software defined in `AlphaFold.json`:
-
 
 ```bash
 ebw -f AlphaFold.json
 ```
 
-*Note: .json file extension is not mandatory*
+To perform a dry run for `AlphaFold.json`:
 
-### Bash Completion
+```bash
+ebw -f AlphaFold.json -d
+```
 
-The `ebw` tool includes a Bash completion script. The completion script, `ebw_completion.sh`, is located in the `lib` directory. You can enable this feature by:
+To use an alternative EasyBuild settings file:
 
-1. **Source the Completion Script**: If the completion script is stored in a file (e.g., `ebw_completion.sh`), you can enable it by sourcing the script in your shell profile. Add the following line to your `.bashrc` or `.bash_profile`:
+```bash
+ebw -f AlphaFold.json -c my_custom_settings.yaml
+```
 
-   ```bash
-   source /path/to/ebw_completion.sh
-   ```
+*Note: .json file extension is not mandatory.*
 
-2. **Set the Installation Files Directory**: You can specify the directory of the installation files by setting the `EBW_INSTALLATION_FILES_DIR` environment variable. If you don't set this variable, the completion script will default to a specified path. Add this line to your `.bashrc` or `.bash_profile` to set the directory:
+The `-d` flag enables dry run mode, which prints the actions without executing them. The `-c` flag allows specifying an alternative EasyBuild settings file within the `config` directory. If not provided, the default `settings.yaml` file will be used.
 
-   ```bash
-   export EBW_INSTALLATION_FILES_DIR="/custom/path/to/installation_files"
-   ```
-
-   Replace `/custom/path/to/installation_files` with the actual path to your installation files.
-
-   You can also replace the default value defined in the completion script.
-
-3. **Reload your Shell Profile**: After making these changes, you may need to reload your shell profile or restart your terminal for the changes to take effect.
-
-   ```bash
-   source ~/.bashrc # or source ~/.bash_profile
-   ```
-   
 With bash completion enabled, you can use the `Tab` key to auto-complete filenames when using the `-f` flag:
 
 ```bash
@@ -173,13 +169,13 @@ Example `AlphaFold.json` file:
 
 ## EasyBuild Configuration
 
-The `configuration.sh` script in the `lib` directory is used to configure EasyBuild based on the `config/settings.yaml` file and to setup the installation environment depending on the options defined in the installation file. This configuration script overrides the system-wide EasyBuild installation configuration. 
+Functions in the `configuration.sh` script in the `lib` directory are used to configure EasyBuild based on a settings file located in the `config` directory, and to set up the installation environment depending on the options defined in the installation file. By default, it uses the `config/settings.yaml` file, but you can override this by providing an alternative settings file using the `-c` modifier followed by the filename. This file has to be placed in the `config` directory. This configuration script overrides the system-wide EasyBuild installation configuration.
 
-The `settings.yaml` file includes settings such as the installation path, source path, build path, and a list of dependencies to hide. You can define other EasyBuild configurations according to the [EasyBuild documentation](https://docs.easybuild.io/en/latest/Configuration.html).
+The settings file includes settings such as the installation path, source path, build path, and a list of dependencies to hide. You can define other EasyBuild configurations according to the [EasyBuild documentation](https://docs.easybuild.io/en/latest/Configuration.html).
 
 This is how a typical EasyBuild settings file could look like:
 
-```
+```yaml
 installpath: "/scicomp/builds/Rocky/8.7/Skylake"
 commonpath: "/scicomp/builds/Rocky/8.7/Common"
 gpupath: "/scicomp/builds/Rocky/8.7/Skylake_GPU"
@@ -195,6 +191,38 @@ hooks: "/scicomp/admin/easybuild/hooks/eb_hooks.py"
 ## Logging
 
 Log files are located in the `logs` directory. Each installation attempt generates a log file named after the easyconfig file, and timestamp of the attempt. 
+
+### Bash Completion
+
+The `ebw` tool includes a Bash completion script. The completion script, `ebw_completion.sh`, is located in the `lib` directory. You can enable this feature by:
+
+1. **Source the Completion Script**: If the completion script is stored in a file (e.g., `ebw_completion.sh`), you can enable it by sourcing the script in your shell profile. Add the following line to your `.bashrc` or `.bash_profile`:
+
+   ```bash
+   source /path/to/ebw_completion.sh
+   ```
+
+2. **Set the Installation Files Directory**: You can specify the directory of the installation files by setting the `EBW_INSTALLATION_FILES_DIR` environment variable. If you don't set this variable, the completion script will default to a specified path. Add this line to your `.bashrc` or `.bash_profile` to set the directory:
+
+   ```bash
+   export EBW_INSTALLATION_FILES_DIR="/custom/path/to/installation_files"
+   ```
+
+   Replace `/custom/path/to/installation_files` with the actual path to your installation files.
+
+   You can also replace the default value defined in the completion script.
+
+3. **Reload your Shell Profile**: After making these changes, you may need to reload your shell profile or restart your terminal for the changes to take effect.
+
+   ```bash
+   source ~/.bashrc # or source ~/.bash_profile
+   ```
+   
+With bash completion enabled, you can use the `Tab` key to auto-complete filenames when using the `-f` flag:
+
+```bash
+ebw -f Alph # Press Tab after typing "Alpha" to auto-complete ("AlphaFold", for example) or see available options.
+```
 
 ## Contributions
 

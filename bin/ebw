@@ -26,39 +26,42 @@ source "${SCRIPT_DIR}/../lib/utils.sh"
 source "${SCRIPT_DIR}/../lib/checks.sh"
 
 # Call parse_arguments function from utils.sh
-read -r FILENAME DRYRUN < <(parse_arguments "$@")
+read -r  INSTALLATION_FILE DRYRUN CONFIG_FILE < <(parse_arguments "$@")
 
-# Check existence and set filename
-FILENAME=$(check_filename "${FILENAME}") || exit 1
+# Check the existence of the configuration file
+CONFIG_FILE=$(check_configfile "${CONFIG_FILE}") || exit 1
+
+# Check existence and set installation file
+INSTALLATION_FILE=$(check_installfile "${INSTALLATION_FILE}") || exit 1
 
 # Validate the JSON syntax used in the installation file
-validate_json "$FILENAME" || exit 1
+validate_json "${INSTALLATION_FILE}" || exit 1
 
 # Extract the easyconfigs from the JSON file
-EASYCONFIGS_LENGTH=$(jq -r ".easyconfigs | length" ${FILENAME})
+EASYCONFIGS_LENGTH=$(jq -r ".easyconfigs | length" ${INSTALLATION_FILE})
 
 for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_INDEX++ )); do
-    EASYCONFIG=$(jq -r ".easyconfigs[$EASYCONFIGS_INDEX].name" ${FILENAME})
+    EASYCONFIG=$(jq -r ".easyconfigs[$EASYCONFIGS_INDEX].name" ${INSTALLATION_FILE})
 
     # Skip to next iteration if this easyconfig is not enabled
-    ENABLED_CUSTOM=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}']["custom-options"] // {} | .enabled // "true"' ${FILENAME})
-    ENABLED_OPTIONS=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}'].options // {} | .enabled // "true"' ${FILENAME})
+    ENABLED_CUSTOM=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}']["custom-options"] // {} | .enabled // "true"' ${INSTALLATION_FILE})
+    ENABLED_OPTIONS=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}'].options // {} | .enabled // "true"' ${INSTALLATION_FILE})
 
     if [ "${ENABLED_CUSTOM}" == "false" ] && [ "${ENABLED_OPTIONS}" == "false" ]; then
         continue
     fi
 
     # Load EasyBuild's configuration
-    read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration)
+    read -r BUILD_PATH HIDE_DEPS INSTALL_PATH COMMON_PATH SOURCE_PATH GPU_PATH ROBOT_PATHS MODULES_TOOL HOOKS < <(load_eb_configuration "${CONFIG_FILE}")
 
     # Create the installation command
     ORIGINAL_EB_COMMAND=$(create_eb_command ${BUILD_PATH} ${HIDE_DEPS} ${INSTALL_PATH} ${SOURCE_PATH} ${ROBOT_PATHS} ${MODULES_TOOL} ${HOOKS} ${EASYCONFIG})
 
     # Use the add_options function to add options from the JSON file to the command
-    MODIFIED_EB_COMMAND=$(add_options "${ORIGINAL_EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}")
+    MODIFIED_EB_COMMAND=$(add_options "${ORIGINAL_EB_COMMAND}" "${INSTALLATION_FILE}" "${EASYCONFIGS_INDEX}")
 
     # Use the add_custom_options function to modify the command for custom options from the JSON file
-    EB_COMMAND=$(add_custom_options "${MODIFIED_EB_COMMAND}" "${FILENAME}" "${EASYCONFIGS_INDEX}" "${INSTALL_PATH}" "${COMMON_PATH}" "${GPU_PATH}")
+    EB_COMMAND=$(add_custom_options "${MODIFIED_EB_COMMAND}" "${INSTALLATION_FILE}" "${EASYCONFIGS_INDEX}" "${INSTALL_PATH}" "${COMMON_PATH}" "${GPU_PATH}")
 
     # If not a dry run, prepare for logging and run eb
     if [ ${DRYRUN} -eq 0 ]; then
@@ -72,11 +75,11 @@ for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_I
 
         # Log the content of the JSON file
         echo "JSON file content:" | tee -a "${LOGFILE}"
-        cat "${FILENAME}" | tee -a "${LOGFILE}"
+        cat "${INSTALLATION_FILE}" | tee -a "${LOGFILE}"
 
         # Log the SHA256 hash of the JSON file
         echo "SHA256 hash of the JSON file:" | tee -a "${LOGFILE}"
-        sha256sum "${FILENAME}" | tee -a "${LOGFILE}"
+        sha256sum "${INSTALLATION_FILE}" | tee -a "${LOGFILE}"
 
         ${EB_COMMAND} -r --trace
         EXIT_STATUS=$?
@@ -86,7 +89,7 @@ for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_I
                           "${EASYCONFIG}" \
                           "${LOGFILE}"
 
-        post_execution_summary "${FILENAME}" "${EASYCONFIG}" \
+        post_execution_summary "${INSTALLATION_FILE}" "${EASYCONFIG}" \
                                    "${EB_COMMAND}" "${LOGFILE}"
     else
         # Dry run

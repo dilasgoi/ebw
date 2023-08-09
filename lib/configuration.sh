@@ -1,10 +1,40 @@
 #!/bin/bash
 
+# Function to parse arguments
+function parse_arguments {
+  local dryrun=0
+  local filename=""
+  local configfile="settings.yaml" # default configuration file
+
+  while getopts "f:dc:" opt; do
+    case ${opt} in
+        f )
+            filename=$OPTARG
+            ;;
+        d )
+            dryrun=1
+            ;;
+        c )
+            configfile=$OPTARG
+            ;;
+        \? )
+            echo "Usage: $(basename $0) -f <installation_file.yaml> [-d] [-c <config_file.yaml>]"
+            exit 1
+            ;;
+    esac
+  done
+  shift $((OPTIND -1))
+
+  # Prepend the script directory path to the config file
+  local script_dir=$(dirname $(readlink -f $0))
+  configfile="${script_dir}/../config/${configfile}"
+
+  echo $filename $dryrun $configfile
+}
+
 # Function to load EasyBuild's configuration
 function load_eb_configuration {
-  local script_dir=$(dirname "$0")
-  local conf_file="${script_dir}/../config/settings.yaml"
-  local common=$1  # common path flag from argument
+  local conf_file="$1"
   local build_path=$(yq e '.buildpath' ${conf_file})
   local hide_deps=$(yq e '.hide-deps' ${conf_file})
   local install_path=$(yq e '.installpath' ${conf_file})

@@ -9,7 +9,8 @@
         {
             "name": "GROMACS-2023.1-foss-2022a-CUDA-11.7.0.eb",
             "options": {
-                "cuda-compute-capabilities": "7.5,8.0"    
+                "cuda-compute-capabilities": "7.5,8.0",
+		"parallel": "4"
 	    },
 	    "custom_options": {
                 "gpu": true
