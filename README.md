@@ -11,8 +11,8 @@ It follows a similar approach as the one described in the [EasyBuild documentati
 - [Installation JSON File Structure](#installation-json-file-structure)
 - [Project Organization](#project-organization)
 - [EasyBuild Configuration](#easybuild-configuration)
-- [Bash completion](#bash-completion)
 - [Logging](#logging)
+- [Bash completion](#bash-completion)
 - [Contributions](#contributions)
 
 ## Features
