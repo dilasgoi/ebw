@@ -1,0 +1,17 @@
+{
+    "easyconfigs": [
+	{
+            "name": "Go-1.18.3.eb",
+	    "custom_options": {
+	        "common": "true"	
+	    }    
+        },
+	{
+            "name": "Apptainer-1.1.8.eb",
+	    "custom_options": {
+                "common": "true",
+                "comments": "Needs: patchelf, fuse-devel, libcap-devel, kernel-headers, autoconf, automake, libtool"
+            }
+        }
+    ]
+}

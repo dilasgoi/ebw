@@ -1,0 +1,16 @@
+{
+    "easyconfigs": [
+	{
+            "name": "GPAW-setups-0.9.20000.eb"
+        },
+        {
+            "name": "GPAW-22.8.0-foss-2022a.eb"
+        },
+        {
+            "name": "GPAW-22.8.0-intel-2022a.eb",
+	    "custom_options": {
+                "comments": "To pass the sanity check unset I_MPI_PMI_LIBRARY from impi module temporarily."
+            }
+        }
+    ]
+}

@@ -96,7 +96,7 @@ function add_custom_options {
 
     for custom_option_key in $custom_option_keys; do
       local custom_option_value=$(jq -r ".easyconfigs[$easyconfig_index].custom_options[\"$custom_option_key\"]" $json_file)
-      
+
       if [[ "$custom_option_key" == "common" && "$custom_option_value" == "true" ]]; then
           eb_command=$(echo $eb_command | sed "s|--installpath=${INSTALL_PATH}|--installpath=${COMMON_PATH}|g")
           install_path_altered=true
