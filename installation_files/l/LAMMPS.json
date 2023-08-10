@@ -5,7 +5,7 @@
 	    "options": {
                 "parallel": "12"
             },
-            "custom_options": {
+            "custom-options": {
                 "common": true
             }
         },    

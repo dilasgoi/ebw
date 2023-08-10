@@ -138,7 +138,7 @@ Each installation is defined through a JSON file with the following structure:
 - `easyconfigs`: An array of EasyBuild configurations, each consisting of:
     - `name`: The name of the EasyConfig file (`.eb`) to use for installation.
     - `options`: An object with keys and values representing the installation options. These are standard EasyBuild command line options.
-    - `custom_options`: An object with keys and values representing custom options that are unique to this framework, and we can implement our own logic on them. The possible options include:
+    - `custom-options`: An object with keys and values representing custom options that are unique to this framework, and we can implement our own logic on them. The possible options include:
         - `common`: A boolean value to specify a microarchitecture independent installation. Default value is `false`.
         - `gpu`: A boolean value to specify a GPU-specific installation. Default value is `false`.
         - `enabled`: A boolean value to specify if this EasyConfig should be installed or skipped. Default value is `true`.
@@ -150,7 +150,7 @@ Example `AlphaFold.json` file:
     "easyconfigs": [
         {
             "name": "CUDA-11.7.0.eb",
-            "custom_options": {
+            "custom-options": {
                 "common": true
             }
         },
@@ -159,7 +159,7 @@ Example `AlphaFold.json` file:
             "options": {
                 "cuda-compute-capabilities": "7.5,8.0"
             },
-            "custom_options": {
+            "custom-options": {
                 "common": true,
                 "gpu": true
             }

@@ -93,11 +93,11 @@ function add_custom_options {
   local easyconfig_index=$3
   local install_path_altered=false       # Flag to check if install path was altered
 
-  if jq -e ".easyconfigs[$easyconfig_index].custom_options != null" $json_file > /dev/null; then
-    local custom_option_keys=$(jq -r ".easyconfigs[$easyconfig_index].custom_options // {} | keys[]" $json_file)
+  if jq -e ".easyconfigs[$easyconfig_index].\"custom-options\" != null" $json_file > /dev/null; then
+    local custom_option_keys=$(jq -r ".easyconfigs[$easyconfig_index].\"custom-options\" // {} | keys[]" $json_file)
 
     for custom_option_key in $custom_option_keys; do
-      local custom_option_value=$(jq -r ".easyconfigs[$easyconfig_index].custom_options[\"$custom_option_key\"]" $json_file)
+      local custom_option_value=$(jq -r ".easyconfigs[$easyconfig_index].\"custom-options\"[\"$custom_option_key\"]" $json_file)
 
       if [[ "$custom_option_key" == "common" && "$custom_option_value" == "true" ]]; then
           eb_command=$(echo $eb_command | sed "s|--installpath=${INSTALL_PATH}|--installpath=${COMMON_PATH}|g")

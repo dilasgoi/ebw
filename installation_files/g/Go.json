@@ -2,12 +2,12 @@
     "easyconfigs": [
 	{
             "name": "Go-1.18.3.eb",
-            "custom_options": {
+            "custom-options": {
             }
         },
         {
             "name": "Go-1.20.4.eb",
-            "custom_options": {
+            "custom-options": {
                 "common": "true"
             }
         }

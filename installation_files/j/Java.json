@@ -2,7 +2,7 @@
     "easyconfigs": [
         {
             "name": "Java-11.0.18.eb",
-            "custom_options": {
+            "custom-options": {
                 "common": true
             }
         }

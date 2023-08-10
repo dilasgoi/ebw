@@ -2,7 +2,7 @@
     "easyconfigs": [
         {
             "name": "NEdit-5.5-Linux-x86.eb",
-            "custom_options": {
+            "custom-options": {
                 "common": true
             }
         }

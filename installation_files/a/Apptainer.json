@@ -2,7 +2,7 @@
     "easyconfigs": [
 	{
             "name": "Go-1.18.3.eb",
-	    "custom_options": {
+	    "custom-options": {
 	        "common": "true"	
 	    }    
         },
@@ -11,7 +11,7 @@
 	    "options": {
                 "ignore-checksums": "true"
 	    },
-	    "custom_options": {
+	    "custom-options": {
                 "common": "true",
                 "comments": "Needs: patchelf, fuse-devel, libcap-devel, kernel-headers, autoconf, automake, libtool"
             }

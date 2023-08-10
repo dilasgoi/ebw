@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # -----------------------------------------------------------
 # ebw - EasyBuild Command-Line Wrapper
 # 
@@ -60,7 +60,7 @@ for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_I
     # Use the add_options function to add options from the JSON file to the command
     MODIFIED_EB_COMMAND=$(add_options "${ORIGINAL_EB_COMMAND}" "${INSTALLATION_FILE}" "${EASYCONFIGS_INDEX}")
 
-    # Use the add_custom_options function to modify the command for custom options from the JSON file
+    # Use the add_custom-options function to modify the command for custom options from the JSON file
     EB_COMMAND=$(add_custom_options "${MODIFIED_EB_COMMAND}" "${INSTALLATION_FILE}" "${EASYCONFIGS_INDEX}" "${INSTALL_PATH}" "${COMMON_PATH}" "${GPU_PATH}")
 
     # If not a dry run, prepare for logging and run eb

@@ -2,7 +2,7 @@
     "easyconfigs": [
 	{
             "name": "CUDA-11.7.0.eb",
-            "custom_options": {
+            "custom-options": {
                 "common": true
             }
         },    
@@ -11,7 +11,7 @@
             "options": {
                 "cuda-compute-capabilities": "7.5,8.0"    
 	    },
-	    "custom_options": {
+	    "custom-options": {
                 "gpu": true
 	    }
         }

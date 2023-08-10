@@ -8,7 +8,7 @@
         },
         {
             "name": "GPAW-22.8.0-intel-2022a.eb",
-	    "custom_options": {
+	    "custom-options": {
                 "comments": "To pass the sanity check unset I_MPI_PMI_LIBRARY from impi module temporarily."
             }
         }
