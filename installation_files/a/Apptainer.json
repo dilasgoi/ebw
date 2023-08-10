@@ -8,6 +8,9 @@
         },
 	{
             "name": "Apptainer-1.1.8.eb",
+	    "options": {
+                "ignore-checksums": "true"
+	    },
 	    "custom_options": {
                 "common": "true",
                 "comments": "Needs: patchelf, fuse-devel, libcap-devel, kernel-headers, autoconf, automake, libtool"

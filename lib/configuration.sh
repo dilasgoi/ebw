@@ -74,11 +74,13 @@ function add_options {
     for option_key in $option_keys; do
       local option_value=$(jq -r ".easyconfigs[$easyconfig_index].options[\"$option_key\"]" $json_file)
 
-      if [[ -n "$option_value" && "$option_value" != "false" ]]; then
+      if [[ "$option_value" == "true" ]]; then
+        eb_command+=" --${option_key}"
+      elif [[ -n "$option_value" && "$option_value" != "false" ]]; then
         eb_command+=" --${option_key}=${option_value}"
       fi
     done
-   fi
+  fi
 
   echo "$eb_command"
 }
