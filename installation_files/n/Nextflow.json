@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "Nextflow-23.04.2.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        }
+    ]
+}
+

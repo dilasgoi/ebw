@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "CASTEP-22.11-foss-2022a.eb",
+	    "custom-options":{
+	        "comments": "Needs the python executable in the path. Just link /usr/bin/python3 to /usr/bin/python."
+            }
+        }
+    ]
+}
+

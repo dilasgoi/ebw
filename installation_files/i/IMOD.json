@@ -1,0 +1,19 @@
+{
+    "easyconfigs": [
+	{
+            "name": "CUDA-11.7.0.eb",
+            "custom-options": {
+                "common": true
+            }
+        },    
+        {
+            "name": "IMOD-4.11.5-foss-2022a-CUDA_11.7.0.eb",
+            "options": {
+                "cuda-compute-capabilities": "7.5,8.0"    
+	    },
+	    "custom-options": {
+                "gpu": true
+	    }
+        }
+    ]
+}

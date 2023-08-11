@@ -1,0 +1,9 @@
+{
+    "easyconfigs": [
+        {
+            "name": "Qt5-5.15.5-GCCcore-11.3.0.eb",
+            "options": {}
+        }
+    ]
+}
+

@@ -1,0 +1,35 @@
+{
+    "easyconfigs": [
+	{
+            "name": "CUDA-11.7.0.eb",
+            "custom-options": {
+                "common": true
+            }
+        },    
+	{
+            "name": "cuDNN-8.4.1.50-CUDA-11.7.0.eb",
+            "custom-options": {
+                "common": true
+            }
+        },    
+	{
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": true
+            }
+        },    
+        {
+            "name": "OpenCV-4.6.0-foss-2022a-CUDA-11.7.0-contrib.eb",
+            "options": {
+                "cuda-compute-capabilities": "7.5,8.0"    
+	    },
+	    "custom-options": {
+                "gpu": true
+	    }
+        },
+	{
+            "name": "OpenCV-4.6.0-foss-2022a-contrib.eb"
+        }
+    ]
+}
+

@@ -1,0 +1,10 @@
+{
+    "easyconfigs": [
+	{
+            "name": "Geant4-data-11.1.eb"
+        },
+        {
+            "name": "Geant4-11.1.2-GCC-11.3.0.eb"
+        }
+    ]
+}
