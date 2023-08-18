@@ -1,0 +1,13 @@
+{
+    "easyconfigs": [
+        {
+            "name": "OpenMolcas-23.06-intel-2022b.eb",
+            "options": {}
+        },
+	{
+            "name": "OpenMolcas-23.06-intel-2022b-noGA.eb",
+            "options": {}
+        }
+    ]
+}
+
