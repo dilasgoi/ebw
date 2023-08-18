@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "NBO-6.0.eb",
+            "custom-options": {
+                "common": true
+            }
+        }
+    ]
+}
+
