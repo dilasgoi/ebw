@@ -1,9 +1,21 @@
 {
     "easyconfigs": [
 	{
+            "name": "Java-11.0.18.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+        {
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+	{
             "name": "R-4.2.1-foss-2022a.eb",
             "options": {}
-        }.
+        },
         {
             "name": "R-4.2.2-foss-2022b.eb",
             "options": {}

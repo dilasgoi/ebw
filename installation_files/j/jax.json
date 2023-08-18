@@ -1,6 +1,18 @@
 {
     "easyconfigs": [
 	{
+            "name": "Java-11.0.18.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+        {
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+	{
 	    "name": "matplotlib-3.5.2-foss-2022a.eb"
 	},	
 	{

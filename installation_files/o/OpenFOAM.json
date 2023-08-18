@@ -1,7 +1,13 @@
 {
     "easyconfigs": [
         {
-            "name": "OpenFOAM-v2206-foss-2022a.eb"
+            "name": "OpenFOAM-v2206-foss-2022a.eb",
+	    "custom-options": {
+                "enabled": "false"
+            }
+        },
+	{
+            "name": "OpenFOAM-v2306-foss-2022b.eb"
         }
     ]
 }

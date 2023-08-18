@@ -1,5 +1,17 @@
 {
     "easyconfigs": [
+	{
+            "name": "Java-11.0.18.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+        {
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
         {
             "name": "Nextflow-23.04.2.eb",
             "custom-options": {

@@ -1,11 +1,29 @@
 {
     "easyconfigs": [
+        {
+            "name": "Java-11.0.18.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+	{
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
 	{
             "name": "CUDA-11.7.0.eb",
             "custom-options": {
                 "common": true
             }
         },    
+	{
+            "name": "cuDNN-8.4.1.50-CUDA-11.7.0.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
         {
             "name": "AlphaFold-2.3.1-foss-2022a-CUDA-11.7.0.eb",
             "options": {
