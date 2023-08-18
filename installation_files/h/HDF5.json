@@ -1,0 +1,9 @@
+{
+    "easyconfigs": [
+        {
+            "name": "HDF5-1.10.7-gompi-2022a.eb",
+            "options": {}
+        }
+    ]
+}
+

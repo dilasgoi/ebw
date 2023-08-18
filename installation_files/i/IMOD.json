@@ -17,7 +17,11 @@
             "custom-options": {
                 "common": true
             }
-        },    
+        },
+	{
+            "name": "HDF5-1.10.7-gompi-2022a.eb",
+            "options": {}
+        },
         {
             "name": "IMOD-4.11.5-foss-2022a-CUDA_11.7.0.eb",
             "options": {
