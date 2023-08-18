@@ -1,0 +1,19 @@
+{
+    "easyconfigs": [
+        {
+            "name": "Java-11.0.18.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+        {
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": true
+            }
+        },
+	{
+            "name": "AFNI-23.0.03-foss-2022a.eb"
+	}
+    ]
+}
