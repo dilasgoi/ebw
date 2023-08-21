@@ -3,7 +3,7 @@
         {
             "name": "cuDNN-8.4.1.50-CUDA-11.7.0.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         }
     ]

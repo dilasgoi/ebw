@@ -3,13 +3,13 @@
 	{
             "name": "Java-11.0.18.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },
         {
             "name": "Java-11.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },
         {

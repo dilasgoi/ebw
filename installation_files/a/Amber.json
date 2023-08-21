@@ -3,7 +3,7 @@
 	{
             "name": "CUDA-11.4.1.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },    
         {

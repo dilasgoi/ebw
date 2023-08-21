@@ -3,7 +3,7 @@
 	{
             "name": "CUDA-11.7.0.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },    
         {
@@ -12,7 +12,7 @@
                 "cuda-compute-capabilities": "7.5,8.0"
 	    },
 	    "custom-options": {
-                "gpu": true
+                "gpu": "true"
 	    }
         },
 	{

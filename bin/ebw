@@ -43,11 +43,10 @@ EASYCONFIGS_LENGTH=$(jq -r ".easyconfigs | length" ${INSTALLATION_FILE})
 for (( EASYCONFIGS_INDEX=0; EASYCONFIGS_INDEX<$EASYCONFIGS_LENGTH; EASYCONFIGS_INDEX++ )); do
     EASYCONFIG=$(jq -r ".easyconfigs[$EASYCONFIGS_INDEX].name" ${INSTALLATION_FILE})
 
-    # Skip to next iteration if this easyconfig is not enabled
     ENABLED_CUSTOM=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}']["custom-options"] // {} | .enabled // "true"' ${INSTALLATION_FILE})
-    ENABLED_OPTIONS=$(jq -r '.easyconfigs['${EASYCONFIGS_INDEX}'].options // {} | .enabled // "true"' ${INSTALLATION_FILE})
 
-    if [ "${ENABLED_CUSTOM}" == "false" ] && [ "${ENABLED_OPTIONS}" == "false" ]; then
+    if [ "${ENABLED_CUSTOM}" == "false" ]; then
+        echo "Skipping installation of ${EASYCONFIG}"
         continue
     fi
 

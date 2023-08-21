@@ -2,7 +2,10 @@
     "easyconfigs": [
         {
             "name": "VASP-6.4.1-intel-2022a.eb",
-            "options": {}
+            "options": {},
+	    "custom-options": {
+                "enabled": "false"
+	    }
         }
     ]
 }

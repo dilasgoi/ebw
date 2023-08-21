@@ -3,25 +3,25 @@
         {
             "name": "Java-11.0.18.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },
 	{
             "name": "Java-11.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },
 	{
             "name": "CUDA-11.7.0.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },    
 	{
             "name": "cuDNN-8.4.1.50-CUDA-11.7.0.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },
         {
@@ -30,7 +30,7 @@
                 "cuda-compute-capabilities": "7.5,8.0"    
 	    },
 	    "custom-options": {
-                "gpu": true
+                "gpu": "true"
 	    }
         }
     ]
