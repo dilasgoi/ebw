@@ -151,7 +151,7 @@ Example `AlphaFold.json` file:
         {
             "name": "CUDA-11.7.0.eb",
             "custom-options": {
-                "common": true
+                "common": "true"
             }
         },
         {
@@ -160,8 +160,8 @@ Example `AlphaFold.json` file:
                 "cuda-compute-capabilities": "7.5,8.0"
             },
             "custom-options": {
-                "common": true,
-                "gpu": true
+                "common": "true",
+                "gpu": "true"
             }
         }
     ]
