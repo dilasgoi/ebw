@@ -1,0 +1,13 @@
+{
+    "easyconfigs": [
+        {
+            "name": "SAMtools-1.16.1-GCC-11.3.0.eb",
+            "options": {}
+        },
+        {
+            "name": "SAMtools-1.17-GCC-12.2.0.eb",
+            "options": {}
+        }
+    ]
+}
+

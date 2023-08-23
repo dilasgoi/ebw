@@ -1,0 +1,20 @@
+{
+    "easyconfigs": [
+       {
+            "name": "Java-11.0.18.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        },
+	{
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        },
+        {
+            "name": "Beast-2.7.3-GCC-11.3.0.eb"
+        }
+    ]
+}
+
