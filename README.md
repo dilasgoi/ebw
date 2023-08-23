@@ -1,6 +1,6 @@
 # EasyBuild Command-Line Wrapper
 
-This project is a simple command-line wrapper for the [EasyBuild](https://easybuild.io/) framework that assists in software building and installation in HPC environments. It enables homogeneous reproducible installations defined through JSON files and provides options for dry runs, microarchitecture independent installations, GPU-specific installations, and defining CUDA compute capabilities. One central objective of this project is to create a catalogue of successful installations, enabling the complete reproduction of the software stack when required.
+This project is a simple command-line wrapper for the [EasyBuild](https://easybuild.io/) framework that assists in software building and installation in HPC environments. It enables homogeneous reproducible installations defined through JSON files and provides options for dry runs, microarchitecture independent installations, GPU-specific installations, and custom options. One central objective of this project is to create a catalogue of successful installations, enabling the complete reproduction of the software stack when required.
 
 It follows a similar approach as the one described in the [EasyBuild documentation about Easystacks](https://docs.easybuild.io/easystack-files/), but offers simplicity and flexible customization options out of the EasyBuild Framework. However, utilizing both easystacks and hooks should generally provide a more general and authentic solution.
 
@@ -142,6 +142,7 @@ Each installation is defined through a JSON file with the following structure:
         - `common`: A boolean value to specify a microarchitecture independent installation. Default value is `false`.
         - `gpu`: A boolean value to specify a GPU-specific installation. Default value is `false`.
         - `enabled`: A boolean value to specify if this EasyConfig should be installed or skipped. Default value is `true`.
+        - `comments`: A comment section.
 
 Example `AlphaFold.json` file:
 
@@ -149,7 +150,25 @@ Example `AlphaFold.json` file:
 {
     "easyconfigs": [
         {
+            "name": "Java-11.0.18.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        },
+	{
+            "name": "Java-11.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        },
+	{
             "name": "CUDA-11.7.0.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        },    
+	{
+            "name": "cuDNN-8.4.1.50-CUDA-11.7.0.eb",
             "custom-options": {
                 "common": "true"
             }
@@ -157,12 +176,11 @@ Example `AlphaFold.json` file:
         {
             "name": "AlphaFold-2.3.1-foss-2022a-CUDA-11.7.0.eb",
             "options": {
-                "cuda-compute-capabilities": "7.5,8.0"
-            },
-            "custom-options": {
-                "common": "true",
+                "cuda-compute-capabilities": "7.5,8.0"    
+	    },
+	    "custom-options": {
                 "gpu": "true"
-            }
+	    }
         }
     ]
 }
