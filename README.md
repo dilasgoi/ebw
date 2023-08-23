@@ -81,44 +81,23 @@ ebw -f Alph # Press Tab after typing "Alpha" to auto-complete ("AlphaFold", for 
 ```
 .
 ├── bin
-│   └── ebw
+│   └── ebw 
 ├── config
-│   └── settings.yaml
+│   └── settings.yaml
 ├── CONTRIBUTING.md
 ├── installation_files
-│   ├── a
-│   │   ├── AlphaFold.json
-│   │   └── Amber.json
-│   ├── c
-│   │   └── cuDNN.json
-│   ├── f
-│   │   └── foss.json
-│   ├── g
-│   │   └── Go.json
-│   ├── i
-│   │   └── intel.json
-│   ├── j
-│   │   └── Java.json
-│   ├── l
-│   │   └── LAMMPS.json
-│   ├── n
-│   │   └── NVHPC.json
-│   ├── q
-│   │   └── QuantumESPRESSO.json
-│   ├── r
-│   │   └── R.json
-│   ├── s
-│   │   └── Siesta.json
-│   ├── v
+│   ├── a [AFNI, AIMAll, AlphaFold, ...]
+│   ├── b [Bazel, BerkeleyGW, Boost, ...]
+│   ├── c [CASTEP, CCP4, cuDNN, ...]
+    ...   
+│   └── v [VAMPIR, VASP]
 ├── lib
-│   ├── checks.sh
-│   ├── configuration.sh
-│   └── utils.sh
+│   ├── checks.sh
+│   ├── configuration.sh
+│   ├── ebw_completion.sh
+│   └── utils.sh
+├── LICENSE.md
 ├── logs
-│   ├── AlphaFold-2.3.1-foss-2022a-CUDA-11.7.0-20230720180224.log
-│   ├── Amber-22.0-foss-2021b-AmberTools-22.3-CUDA-11.4.1-20230720175050.log
-│   ├── CUDA-11.4.1-20230720174837.log
-│   ├── CUDA-11.7.0-20230720180224.log
 └── README.md
 ```
 
