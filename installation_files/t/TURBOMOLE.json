@@ -1,7 +1,7 @@
 {
     "easyconfigs": [
         {
-            "name": "TURBOMOLE-7.6.eb",
+            "name": "TURBOMOLE-7.6-iimpi-2022b.eb",
 	    "custom-options": {
                 "common": "true",
 		"comments": "Custom turbole.py easyblock is needed. Get it from repo."
