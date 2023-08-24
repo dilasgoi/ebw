@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+	{
+            "name": "Mathematica-13.2.1.eb",
+	    "custom-options": {
+                "common": "true",
+		"comments": "Remember to set the license server in the Easyconfig file)"
+	    }	    
+        }
+    ]
+}

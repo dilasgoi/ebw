@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "TURBOMOLE-7.6.eb",
+	    "custom-options": {
+                "common": "true",
+		"comments": "Custom turbole.py easyblock is needed. Get it from repo."
+	    }
+        }
+    ]
+}
