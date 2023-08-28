@@ -2,15 +2,15 @@
     "easyconfigs": [
         {
             "name": "foss-2021a.eb",
-            "options": {}
+            "custom-options": {}
         },
         {
             "name": "foss-2022a.eb",
-            "options": {}
+            "custom-options": {"enabled": "true"}
         },
         {
             "name": "foss-2022b.eb",
-            "options": {}
+            "custom-options": {"enabled": "true"}
         }
     ]
 }

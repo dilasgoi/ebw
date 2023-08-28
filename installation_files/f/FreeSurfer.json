@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "FreeSurfer-7.4.0-centos8_x86_64.eb",
+            "custom-options": {
+	        "common": "true"
+	    }
+        }
+    ]
+}
+
