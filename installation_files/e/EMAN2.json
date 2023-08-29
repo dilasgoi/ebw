@@ -1,7 +1,10 @@
 {
     "easyconfigs": [
         {
-            "name": "EMAN2-2.99.47-foss-2022a-CUDA-11.7.0.eb"
+            "name": "EMAN2-2.99.47-foss-2022a-CUDA-11.7.0.eb",
+	    "options": {
+	        "ignore-checksums": "true"	  
+            }		    
         }
     ]
 }
