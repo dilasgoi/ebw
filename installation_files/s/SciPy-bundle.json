@@ -1,6 +1,9 @@
 {
     "easyconfigs": [
 	{
+            "name": "SciPy-bundle-2021.05-foss-2021a.eb"
+        },
+	{
             "name": "SciPy-bundle-2021.10-foss-2021b.eb"
         },
         {

@@ -4,7 +4,7 @@
             "name": "COMSOL-6.1.eb",
             "custom-options": {
                 "common": "true",
-		"comments": "Remember to set EB_COMSOL_LICENSE_SERVER, EB_COMSOL_LICENSE_SERVER_PORT, EB_COMSOL_LICENSE_FILE."
+		"comments": "Remember to set LMCOMSOL_LICENSE_FILE."
             }
         }
     ]

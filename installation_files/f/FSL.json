@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "FSL-6.0.5.1-foss-2021a.eb",
+            "custom-options": {
+	        "common": "true"
+	    }
+        }
+    ]
+}
+

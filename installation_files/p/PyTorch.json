@@ -1,0 +1,13 @@
+{
+    "easyconfigs": [
+	{
+	    "name": "PyTorch-1.13.1-foss-2022a.eb"
+	},
+	{
+            "name": "PyTorch-1.13.1-foss-2022a-CUDA-11.7.0.eb"
+	    "options": {
+                "ignore-checksums": "true"
+	    {
+        }
+    ]
+}
