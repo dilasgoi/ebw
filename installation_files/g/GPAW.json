@@ -11,6 +11,12 @@
 	    "custom-options": {
                 "comments": "To pass the sanity check unset I_MPI_PMI_LIBRARY from impi module temporarily."
             }
+        },
+	{
+            "name": "GPAW-23.6.1-foss-2022a.eb"
+        },
+	{
+            "name": "GPAW-23.6.1-intel-2022a.eb"
         }
     ]
 }

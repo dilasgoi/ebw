@@ -1,0 +1,13 @@
+{
+    "easyconfigs": [
+	{
+            "name": "WPS-4.4-foss-2022a-dmpar.eb",
+            "options": {}
+        },
+        {
+            "name": "WRF-4.4-foss-2022a-dmpar.eb",
+            "options": {}
+        }
+    ]
+}
+
