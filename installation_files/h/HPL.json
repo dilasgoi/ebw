@@ -1,0 +1,17 @@
+{
+    "easyconfigs": [
+        {
+            "name": "HPL-2.3-foss-2021b.eb",
+            "options": {}
+        },
+	{
+            "name": "HPL-2.3-intel-2021b.eb",
+            "options": {}
+        },
+        {
+            "name": "HPL-2.3-intel-2022b.eb",
+            "options": {}
+        }
+    ]
+}
+

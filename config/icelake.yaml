@@ -1,4 +1,4 @@
-installpath: "/scicomp"
+installpath: "/scicomp/builds/Rocky/8.7/IceLake"
 commonpath: "/scicomp/builds/Rocky/8.7/Common"
 sourcepath: "/scicomp/builds/source"
 buildpath: "/dev/shm/easybuild"

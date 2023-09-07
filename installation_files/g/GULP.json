@@ -1,6 +1,9 @@
 {
     "easyconfigs": [
 	{
+            "name": "FFTW-3.3.10-iimpi-2021b.eb"
+        },
+	{
             "name": "GULP-6.1-intel-2021b.eb"
         }
     ]

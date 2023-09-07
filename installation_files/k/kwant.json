@@ -1,0 +1,9 @@
+{
+    "easyconfigs": [
+        {
+            "name": "kwant-1.4.4-foss-2022a.eb",
+            "options": {}
+        }
+    ]
+}
+

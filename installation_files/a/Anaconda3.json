@@ -1,0 +1,10 @@
+{
+    "easyconfigs": [
+	{
+            "name": "Anaconda3-2023.03-1.eb",
+	    "custom-options": {
+                "common": "true"
+            }
+	}
+    ]
+}
