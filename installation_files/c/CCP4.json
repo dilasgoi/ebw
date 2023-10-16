@@ -1,7 +1,7 @@
 {
     "easyconfigs": [
         {
-            "name": "CCP4-8.0.013.eb",
+            "name": "CCP4-8.0.015.eb",
 	    "custom-options": {
 	        "common": "true"
             }

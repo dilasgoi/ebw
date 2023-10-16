@@ -5,6 +5,10 @@
             "custom-options": {}
         },
         {
+            "name": "foss-2021b.eb",
+            "custom-options": {}
+        },
+        {
             "name": "foss-2022a.eb",
             "custom-options": {"enabled": "true"}
         },

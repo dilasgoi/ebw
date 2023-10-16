@@ -11,6 +11,9 @@
             "options": {
                 "accept-eula-for": "NVHPC",
                 "cuda-compute-capabilities": "7.5,8.0"
+            },
+	    "custom-options": {
+                "common": "true"
             }
         }
     ]

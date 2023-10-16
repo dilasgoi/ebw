@@ -1,7 +1,7 @@
 {
     "easyconfigs": [
-        {
-            "name": "gnuplot-5.4.6-GCCcore-12.2.0.eb"
+	{
+            "name": "gnuplot-5.4.4-GCCcore-11.3.0.eb"
         }
     ]
 }

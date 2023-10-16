@@ -1,0 +1,19 @@
+{
+    "easyconfigs": [
+	{
+            "name": "Go-1.17.6.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        },
+        {
+            "name": "git-lfs-3.2.0.eb",
+            "options": {
+                "try-software-version": "3.4.0"    
+	    },
+	    "custom-options": {
+                "common": "true"
+	    }
+        }
+    ]
+}

@@ -1,8 +1,7 @@
 {
     "easyconfigs": [
         {
-            "name": "FSL-6.0.5.1-foss-2021a.eb"
+            "name": "TRIQS-3.1.1-foss-2022a.eb"
         }
     ]
 }
-

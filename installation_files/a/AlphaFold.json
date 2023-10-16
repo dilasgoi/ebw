@@ -7,6 +7,12 @@
             }
         },
 	{
+            "name": "Java-11.0.20.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        },
+	{
             "name": "Java-11.eb",
             "custom-options": {
                 "common": "true"

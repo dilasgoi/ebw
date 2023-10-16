@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "CUDA-11.7.0.eb",
+            "custom-options": {
+                "common": "true"
+            }
+        }
+    ]
+}
+

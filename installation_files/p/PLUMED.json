@@ -1,0 +1,13 @@
+{
+    "easyconfigs": [
+	{
+	    "name": "PLUMED-2.7.3-foss-2021b.eb"
+	},
+	{
+            "name": "PLUMED-2.8.1-foss-2022a.eb"
+        },
+	{
+            "name": "PLUMED-2.9.0-foss-2022b.eb"
+        }
+    ]
+}

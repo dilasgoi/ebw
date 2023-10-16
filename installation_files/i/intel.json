@@ -1,5 +1,11 @@
 {
 	"easyconfigs": [
+        {                                                                                                               
+            "name": "intel-2021a.eb",                                                                                   
+            "options": {                                                                                                
+                "accept-eula-for": "Intel-oneAPI"                                                                       
+            }                                                                                                           
+        },
         {
 			"name": "intel-2021b.eb",
 			"options": {

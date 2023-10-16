@@ -1,0 +1,11 @@
+{
+    "easyconfigs": [
+        {
+            "name": "CP2K-9.1-foss-2022a.eb"
+        },
+	{
+            "name": "CP2K-2023.1-foss-2022b.eb"
+        }
+    ]
+}
+

@@ -21,7 +21,7 @@
         {
             "name": "jax-0.4.4-foss-2022a.eb",
             "options": {
-                "cuda-compute-capabilities": "7.5,8.0"    
+                "cuda-compute-capabilities": "8.0,8.6"    
 	    }
         }
     ]

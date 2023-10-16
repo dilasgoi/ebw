@@ -33,7 +33,7 @@
         {
             "name": "OpenCV-4.6.0-foss-2022a-CUDA-11.7.0-contrib.eb",
             "options": {
-                "cuda-compute-capabilities": "7.5,8.0"    
+                "cuda-compute-capabilities": "8.0,8.6"    
 	    },
 	    "custom-options": {
                 "gpu": "true"

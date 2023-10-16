@@ -1,0 +1,10 @@
+{
+    "easyconfigs": [
+        {
+            "name": "iomkl-2021a.eb",
+	    "options": {
+	        "accept-eula-for": "Intel-oneAPI"
+	    }
+        }
+    ]
+}
