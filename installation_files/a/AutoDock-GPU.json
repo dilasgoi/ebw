@@ -7,18 +7,13 @@
             }
         },    
         {
-            "name": "GROMACS-2023.1-foss-2022a-CUDA-11.7.0.eb",
+            "name": "AutoDock-GPU-1.5.3-GCC-11.3.0-CUDA-11.7.0.eb",
             "options": {
-                "cuda-compute-capabilities": "7.5,8.0",
-		"try-software-version": "2023"
+                "cuda-compute-capabilities": "7.5,8.0"    
 	    },
 	    "custom-options": {
                 "gpu": "true"
 	    }
-        },
-	{
-            "name": "GROMACS-2023.1-foss-2022a.eb"
         }
     ]
 }
-

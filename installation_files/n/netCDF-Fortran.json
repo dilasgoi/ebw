@@ -1,0 +1,8 @@
+{
+    "easyconfigs": [
+        {
+            "name": "netCDF-Fortran-4.5.3-gompi-2021a.eb"
+        }
+    ]
+}
+
